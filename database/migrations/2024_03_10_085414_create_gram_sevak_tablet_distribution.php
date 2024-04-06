@@ -11,31 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('labour', function (Blueprint $table) {
+        Schema::create('gram_sevak_tablet_distribution', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('gender_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('taluka_id');
             $table->unsignedBigInteger('village_id');
-            $table->unsignedBigInteger('skill_id');
-            $table->string('user_type')->default('null');
+            $table->unsignedBigInteger('adhar_card_number');
             $table->string('full_name');
-            $table->string('date_of_birth');
+            $table->string('gram_panchayat_name');
             $table->string('mobile_number');
-            $table->string('landline_number')->nullable();
-            $table->string('mgnrega_card_id');
             $table->string('latitude');
             $table->string('longitude');
-            $table->boolean('is_approved')->default(true);
-            $table->boolean('is_resubmitted')->default(false);
-            $table->unsignedBigInteger('reason_id')->nullable();
-            $table->string('other_remark')->default('null');
-            $table->string('sync_reason')->default('null');
             $table->string('aadhar_image')->default('null');
-            $table->string('mgnrega_image')->default('null');
-            $table->string('profile_image')->default('null');
-            $table->string('voter_image')->default('null');
+            $table->string('gram_sevak_id_card_photo')->default('null');
+            $table->string('photo_of_beneficiary')->default('null');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -46,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('labour');
+        Schema::dropIfExists('gram_sevak_tablet_distribution');
     }
 };

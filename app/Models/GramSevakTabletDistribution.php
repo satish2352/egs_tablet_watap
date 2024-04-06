@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reasons extends Model
+class GramSevakTabletDistribution extends Model
 {
     use HasFactory;
-    protected $table = 'tbl_reason';
+    protected $table = 'gram_sevak_tablet_distribution';
     protected $primaryKey = 'id';
 }
