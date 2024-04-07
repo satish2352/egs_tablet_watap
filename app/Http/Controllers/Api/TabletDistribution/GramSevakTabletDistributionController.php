@@ -29,6 +29,7 @@ class GramSevakTabletDistributionController extends Controller
             'aadhar_image' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',  
             'gram_sevak_id_card_photo' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048', 
             'photo_of_beneficiary' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',
+            'photo_of_tablet_imei' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',
         ];
       
         $validator = Validator::make($request->all(), $all_data_validation);
@@ -54,34 +55,37 @@ class GramSevakTabletDistributionController extends Controller
             $labour_data->latitude = $request->latitude;
             $labour_data->longitude = $request->longitude;
 
+
             $labour_data->save();
 
             $last_insert_id = $labour_data->id;
             $imageAadhar = $last_insert_id . '_' . rand(100000, 999999) . '_aadhar.' . $request->aadhar_image->extension();
             $gram_sevak_id_card_photo = $last_insert_id . '_' . rand(100000, 999999) . '_profile.' . $request->gram_sevak_id_card_photo->extension();
             $photo_of_beneficiary = $last_insert_id . '_' . rand(100000, 999999) . '_voter.' . $request->photo_of_beneficiary->extension();
+            $photo_of_tablet_imei = $last_insert_id . '_' . rand(100000, 999999) . '_photo_of_tablet_imei.' . $request->photo_of_tablet_imei->extension();
 
             $path = Config::get('DocumentConstant.USER_GRAMSEVAK_ADD');
 
             uploadImage($request, 'aadhar_image', $path, $imageAadhar);
             uploadImage($request, 'gram_sevak_id_card_photo', $path, $gram_sevak_id_card_photo);
             uploadImage($request, 'photo_of_beneficiary', $path, $photo_of_beneficiary);
+            uploadImage($request, 'photo_of_tablet_imei', $path, $photo_of_tablet_imei);
 
             // Update the image paths in the database
             $labour_data->aadhar_image =  $imageAadhar;
             $labour_data->gram_sevak_id_card_photo = $gram_sevak_id_card_photo;
             $labour_data->photo_of_beneficiary =  $photo_of_beneficiary;
+            $labour_data->photo_of_tablet_imei =  $photo_of_tablet_imei;
             $labour_data->save();
 
             // Include image paths in the response
             $labour_data->aadhar_image = $labour_data->aadhar_image;
-            $labour_data->mgnrega_image = $labour_data->mgnrega_image;
             $labour_data->gram_sevak_id_card_photo = $labour_data->gram_sevak_id_card_photo;
-            $labour_data->photo_of_beneficiary = $labour_data->photo_of_beneficiary;
+            $labour_data->photo_of_tablet_imei = $labour_data->photo_of_tablet_imei;
 
             return response()->json([
                 'status' => 'True',
-                'message' => 'Labor added successfully',
+                'message' => 'Tablet distribution information added successfully',
             ]);
 
         } catch (\Exception $e) {
@@ -89,7 +93,7 @@ class GramSevakTabletDistributionController extends Controller
         }
     }
    
-    public function getAllLabourList(Request $request){
+    public function getAllTabletDistributionList(Request $request){
     
         try {
             $data_output = [];

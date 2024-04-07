@@ -30,7 +30,7 @@ Route::group([
     Route::middleware('auth:api')->group(function () {
          //=============Start labour=================
         Route::post('/add-tablet-info', [GramSevakTabletDistributionController::class, 'add']);
-        Route::post('/list-tablet-info', [GramSevakTabletDistributionController::class, 'getAllLabourList']);
+        Route::post('/list-tablet-info', [GramSevakTabletDistributionController::class, 'getAllTabletDistributionList']);
 
      
         Route::post('/update-labour-first-form', [GramSevakTabletDistributionController::class, 'updateLabourFirstForm']);
