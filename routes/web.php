@@ -220,6 +220,9 @@ Route::get('/list-project-wise-labour-reports', ['as' => 'list-project-wise-labo
 
 Route::get('/log-out', ['as' => 'log-out', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\LoginController@logout']);
 
+Route::get('/list-gramsevak-tablet-distribution', ['as' => 'list-gramsevak-tablet-distribution', 'uses' => 'App\Http\Controllers\Admin\Reports\ReportsController@getAllLabourLocation']);
+
+
 });
 
 });
