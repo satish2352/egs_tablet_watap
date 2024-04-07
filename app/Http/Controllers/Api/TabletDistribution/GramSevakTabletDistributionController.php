@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Labour;
+namespace App\Http\Controllers\Api\TabletDistribution;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Config;
 
 
 
-class LabourController extends Controller
+class GramSevakTabletDistributionController extends Controller
 {
     public function add(Request $request ){
+
         $all_data_validation = [
             'full_name' => 'required',
             'district_id' => 'required', 

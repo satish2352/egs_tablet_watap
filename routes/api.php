@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Api\Labour\LabourController;
+use App\Http\Controllers\Api\TabletDistribution\GramSevakTabletDistributionController;
 use App\Http\Controllers\Api\Master\AllMasterController;
 
 /*
@@ -29,12 +29,12 @@ Route::group([
     // Protected routes that require authentication token
     Route::middleware('auth:api')->group(function () {
          //=============Start labour=================
-        Route::post('/add-labour', [LabourController::class, 'add']);
-        Route::post('/list-labour', [LabourController::class, 'getAllLabourList']);
+        Route::post('/add-tablet-info', [GramSevakTabletDistributionController::class, 'add']);
+        Route::post('/list-tablet-info', [GramSevakTabletDistributionController::class, 'getAllLabourList']);
 
      
-        Route::post('/update-labour-first-form', [LabourController::class, 'updateLabourFirstForm']);
-        Route::post('/update-labour-second-form', [LabourController::class, 'updateLabourSecondForm']);
+        Route::post('/update-labour-first-form', [GramSevakTabletDistributionController::class, 'updateLabourFirstForm']);
+        Route::post('/update-labour-second-form', [GramSevakTabletDistributionController::class, 'updateLabourSecondForm']);
        
      
        
