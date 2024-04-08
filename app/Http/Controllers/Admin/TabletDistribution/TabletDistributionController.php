@@ -53,7 +53,7 @@ class TabletDistributionController extends Controller {
 
 
             $data_gram_doc_details = $this->service->showTabletDistribution($request->show_id);
-            return view('admin.pages.gramsevak.show-gramsevak-doc', compact('data_gram_doc_details'));
+            return view('admin.pages.TabletDistribution.show-tablet-distribution', compact('data_gram_doc_details'));
         } catch (\Exception $e) {
             return $e;
         }
