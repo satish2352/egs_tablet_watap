@@ -28,7 +28,6 @@
                                                 <tr>
                                                     <th>Sr. No.</th>
                                                     <th>Name</th>
-                                                    <th>Role</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -40,7 +39,6 @@
                                                         <td>{{ $item->f_name }} {{ $item->m_name }} {{ $item->l_name }}
                                                             ({{ $item->email }})
                                                         </td>
-                                                        <td>{{ $item->role_name }}</td>
 
 
                                                         <td>

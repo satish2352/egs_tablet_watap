@@ -17,12 +17,7 @@ class RegisterRepository
 {
 
 	public function getUsersList() {
-        $data_users = User::join('roles', function($join) {
-							$join->on('users.role_id', '=', 'roles.id');
-						})
-						// ->where('users.is_active','=',true)
-						->select('roles.role_name',
-								'users.email',
+        $data_users = User::select('users.email',
 								'users.f_name',
 								'users.m_name',
 								'users.l_name',
@@ -33,10 +28,6 @@ class RegisterRepository
 								'users.taluka',
 								'users.village',
 								'users.pincode',
-								'users.user_type',
-								'users.user_district',
-								'users.user_taluka',
-								'users.user_village',
 								'users.id',
 								'users.is_active'
 							)
@@ -86,12 +77,10 @@ class RegisterRepository
 	public function register($request)
 	{
 		$data =array();
-		// $ipAddress = getIPAddress($request);
 		$user_data = new User();
 		$user_data->email = $request['email'];
-		// $user_data->u_uname = $request['u_uname'];
 		$user_data->password = bcrypt($request['password']);
-		$user_data->role_id = $request['role_id'];
+		$user_data->role_id = '1';
 		$user_data->f_name = $request['f_name'];
 		$user_data->m_name = $request['m_name'];
 		$user_data->l_name = $request['l_name'];
@@ -103,11 +92,11 @@ class RegisterRepository
 		$user_data->taluka	 = $request['taluka'];
 		$user_data->village = $request['village'];
 		$user_data->pincode = $request['pincode'];
-		$user_data->user_type = $request['user_type'];
-		$user_data->user_district = $request['user_district'];
-		$user_data->user_taluka = $request['user_taluka'];
-		$user_data->user_village = $request['user_village'];
 		$user_data->ip_address = 'null';
+		$user_data->user_type = '0';
+		$user_data->user_district = '0';
+		$user_data->user_taluka = '0';
+		$user_data->user_village = '0';
 		$user_data->is_active = isset($request['is_active']) ? true : false;
 		$user_data->save();
 
