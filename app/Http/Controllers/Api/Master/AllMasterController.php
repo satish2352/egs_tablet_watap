@@ -40,7 +40,7 @@ class AllMasterController extends Controller
 
     public function getAllMastersUpdated(){
         try {
-            $data =  TblArea::where(['is_active'=> true,'is_new'=> '1'])->orderBy('id', 'asc')->get();
+            $data =  TblArea::where(['is_active'=> true,'is_new'=> 1])->orderBy('id', 'asc')->get();
             
             return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $data], 200);
         } catch (\Exception $e) {
