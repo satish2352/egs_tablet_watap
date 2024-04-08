@@ -102,35 +102,44 @@
                                         </div>
                                     </div>
 
-                                    <div class="row ">
+                                    <div class="row mt-2">
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <label>Aadhar Image :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <a href="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['aadhar_image'] }}" download target="_blank">
-                                            {{ $data_gram_doc_details['user_data']['aadhar_image'] }}
-                                        </a>
+                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['aadhar_image'] }}"
+                                                style="width:100px; height:100px;" />
                                         </div>
                                     </div>
 
-                                    <div class="row ">
+                                    <div class="row mt-2">
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <label>Gramsevak ID Card :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <a href="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['gram_sevak_id_card_photo'] }}" download target="_blank">
-                                            {{ $data_gram_doc_details['user_data']['gram_sevak_id_card_photo'] }}
-                                        </a>
+                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['gram_sevak_id_card_photo'] }}"
+                                                style="width:100px; height:100px;" />
                                         </div>
                                     </div>
-                                    <div class="row ">
+                                    <div class="row mt-2">
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <label>Photo Of Beneficiry :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <a href="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['photo_of_beneficiary'] }}" download target="_blank">
-                                            {{ $data_gram_doc_details['user_data']['photo_of_beneficiary'] }}
-                                        </a>
+                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['photo_of_beneficiary'] }}"
+                                                style="width:100px; height:100px;" />
+                                        
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <label>Photo Tablet IMEI :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['photo_of_tablet_imei'] }}"
+                                                style="width:100px; height:100px;" />
+                                        
                                         </div>
                                     </div>
                                     <input type="hidden" class="tok" name="_token" id="csrf-token" value="{{ Session::token() }}" />
