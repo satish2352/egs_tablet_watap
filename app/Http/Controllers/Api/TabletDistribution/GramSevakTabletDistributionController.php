@@ -217,11 +217,10 @@ class GramSevakTabletDistributionController extends Controller
     }
    }
 
-    public function mgnregaCardIdAlreadyExist(Request $request) {
+    public function adharCardExist(Request $request) {
         try {
             $validator = Validator::make($request->all(), [
                 'adhar_card_number' => 'required',
-                'mobile_number' => 'required'
             ]);
     
             if ($validator->fails()) {
@@ -231,16 +230,11 @@ class GramSevakTabletDistributionController extends Controller
             $GramSevakTabletDistribution = GramSevakTabletDistribution::where('adhar_card_number', $request->adhar_card_number)->first();
 
             if (!$GramSevakTabletDistribution) {
-                return response()->json(['status' => 'error', 'message' => 'Labour not found'], 200);
-            }
-
-           
-    
-            if (($GramSevakTabletDistribution->mobile_number == $request->mobile_number ) || ($GramSevakTabletDistribution->adhar_card_number == $request->adhar_card_number ) ) {
-                return response()->json(['status' => 'true', 'message' => 'Adhar  card ID  Or Mobile Number already exists'], 200);
+                return response()->json(['status' => 'false', 'message' => 'Gramsevak not found'], 200);
             } else {
-                return response()->json(['status' => 'false', 'message' => 'Adhar  card ID  Or Mobile Number does not exist'], 200);
+                return response()->json(['status' => 'true', 'message' => 'Gramsevak found'], 200);
             }
+           
     
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Update failed','error' => $e->getMessage()], 500);

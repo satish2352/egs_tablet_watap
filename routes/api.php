@@ -34,7 +34,7 @@ Route::group([
 
      
         Route::post('/update-labour-first-form', [GramSevakTabletDistributionController::class, 'updateLabourFirstForm']);
-        Route::post('/update-labour-second-form', [GramSevakTabletDistributionController::class, 'updateLabourSecondForm']);
+        Route::post('/adhar-card-exist', [GramSevakTabletDistributionController::class, 'adharCardExist']);
        
      
        
