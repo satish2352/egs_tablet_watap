@@ -146,6 +146,7 @@ class GramSevakTabletDistributionController extends Controller
                     
                     )->skip($start)
                 ->take($rowperpage)
+                ->orderBy('gram_sevak_tablet_distribution.id', 'desc')
                 ->get();
 
                 foreach ($data_output as $labour) {
