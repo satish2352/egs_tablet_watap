@@ -10,12 +10,12 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-start align-items-center">
                             <h3 class="page-title">
-                                User Details
+                                Tablet Distribution Details
                             </h3>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-end align-items-center">
                             <div>
-                                <a href="{{ route('list-gramsevak-tablet-distribution') }}" class="btn btn-sm btn-primary ml-3">Back</a>
+                                <a href="{{ route('list-gramsevak') }}" class="btn btn-sm btn-primary ml-3">Back</a>
                             </div>
                         </div>
 
@@ -27,52 +27,11 @@
                                     @include('admin.layout.alert')
                                     <div class="row ">
                                         <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>Gramsevak Name :</label>
+                                            <label>Name :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ $data_gram_doc_details['user_data']['full_name'] }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>Grampanchayat Name :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ strip_tags($data_gram_doc_details['user_data']['gram_panchayat_name']) }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>mobile Number :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ strip_tags($data_gram_doc_details['user_data']['mobile_number']) }}</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>Gramsevak Aadhar Card Number :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ strip_tags($data_gram_doc_details['user_data']['adhar_card_number']) }}</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>Latitude :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ strip_tags($data_gram_doc_details['user_data']['latitude']) }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>Longitude :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ strip_tags($data_gram_doc_details['user_data']['longitude']) }}</label>
+                                            <label>{{ $data_gram_doc_details['user_data']['f_name'] }} {{ $data_gram_doc_details['user_data']['m_name'] }}
+                                                {{ $data_gram_doc_details['user_data']['l_name'] }}</label>
                                         </div>
                                     </div>
                                     <div class="row ">
@@ -97,17 +56,6 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
                                             <label>{{ strip_tags($data_gram_doc_details['user_data']['village']) }}</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <label>Aadhar Card Image :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <a href="{{ Config::get('DocumentConstant.GRAM_PANCHAYAT_DOC_VIEW') }}{{ $data_gram_doc_details['user_data']['aadhar_image'] }}" download target="_blank">
-                                            {{ $data_gram_doc_details['user_data']['aadhar_image'] }}
-                                        </a>
                                         </div>
                                     </div>
                                     <input type="hidden" class="tok" name="_token" id="csrf-token" value="{{ Session::token() }}" />

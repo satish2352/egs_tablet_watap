@@ -51,31 +51,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/village', ['as' => 'village', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\RegisterController@getVillage']);
 
 
-    Route::get('/list-projects', ['as' => 'list-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@index']);
-    Route::get('/projects', ['as' => 'projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@ProjectsForMap']);
-    Route::post('/update-active-projects', ['as' => 'update-active-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@updateOne']);
-    Route::get('/add-projects', ['as' => 'add-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@addProjects']);
-    Route::post('/add-projects', ['as' => 'add-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@store']);
-    Route::get('/edit-projects/{edit_id}', ['as' => 'edit-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@editProjects']);
-    Route::post('/update-projects', ['as' => 'update-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@update']);
-    Route::post('/show-projects', ['as' => 'show-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@show']);
-    Route::post('/delete-projects', ['as' => 'delete-projects', 'uses' => 'App\Http\Controllers\Admin\Project\ProjectController@delete']);
-
-
-    Route::get('/list-labours', ['as' => 'list-labours', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@index']);
-    Route::post('/update-active-labours', ['as' => 'update-active-labours', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@updateOne']);
-    Route::post('/show-labours', ['as' => 'show-labours', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@show']);
-    Route::get('/list-labour-attendance', ['as' => 'list-labour-attendance', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@getLabourAttendanceList']);
-
-    Route::get('/list-approved-labours', ['as' => 'list-approved-labours', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@listApprovedLabours']);
-    Route::get('/list-disapproved-labours', ['as' => 'list-disapproved-labours', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@listDisapprovedLabours']);
-    Route::get('/list-resubmitted-labours', ['as' => 'list-resubmitted-labours', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@listResubmitedLabours']);
-    Route::post('/update-labour-status', ['as' => 'update-labour-status', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@updateLabourStatus']);
-    Route::get('/list-labours-filter', ['as' => 'list-labours-filter', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@getFilterLabours']);
-    Route::get('/list-labours-attendance-filter', ['as' => 'list-labours-attendance-filter', 'uses' => 'App\Http\Controllers\Admin\Menu\LaboursController@getFilterLaboursAttendance']);
-
-
-
     Route::get('/list-gramsevak', ['as' => 'list-gramsevak', 'uses' => 'App\Http\Controllers\Admin\Gramsevak\GramsevakController@index']);
     Route::post('/show-gramsevak-doc', ['as' => 'show-gramsevak-doc', 'uses' => 'App\Http\Controllers\Admin\Gramsevak\GramsevakController@showGramsevakDocuments']);
     Route::get('/update-gram-document-status', ['as' => 'update-gram-document-status', 'uses' => 'App\Http\Controllers\Admin\Gramsevak\GramsevakController@updateGramDocumentStatus']);
@@ -83,21 +58,6 @@ Route::group(['middleware' => ['admin']], function () {
 
 
     Route::get('/get-location-wise-project', ['as' => 'get-location-wise-project', 'uses' => 'App\Http\Controllers\Admin\Reports\LaboursController@getLocationWiseProjects']);
-
-
-
-
-    Route::get('/list-project-wise-users', ['as' => 'list-project-wise-users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@index']);
-    Route::get('/add-project-wise-users', ['as' => 'add-project-wise-users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@addProjectusers']);
-    Route::post('/add-project-wise-users', ['as' => 'add-project-wise-users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@store']);
-    Route::get('/usertype-users', ['as' => 'usertype-users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@getUserTypeUsers']);
-    Route::post('/update-active-project_users', ['as' => 'update-active-project_users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@updateOne']);
-    Route::get('/edit-project-wise-users/{edit_id}', ['as' => 'edit-project-wise-users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@editProjectUsers']);
-    Route::post('/update-project-wise-users', ['as' => 'update-project-wise-users', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@update']);
-    Route::get('/list-project-wise-user-edit', ['as' => 'list-project-wise-user-edit', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@getProjectWiseUsers']);
-    Route::get('/list-user-type-wise-user-edit', ['as' => 'list-user-type-wise-user-edit', 'uses' => 'App\Http\Controllers\Admin\ProjectUser\ProjectUserController@getUserTypetWiseUsers']);
-
-
 
 
 
@@ -109,17 +69,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/update-user-profile', ['as' => 'update-user-profile', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\RegisterController@updateProfile']);
 
     Route::post('/otp-verification', ['as' => 'otp-verification', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\RegisterController@updateEmailOtp']);
-    
-
-    // Landing Start================  
-    Route::get('/list-slide', ['as' => 'list-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@index']);
-    Route::get('/add-slide', ['as' => 'add-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@add']);
-    Route::post('/add-slide', ['as' => 'add-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@store']);
-    Route::get('/edit-slide/{edit_id}', ['as' => 'edit-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@edit']);
-    Route::post('/update-slide', ['as' => 'update-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@update']);
-    Route::post('/show-slide', ['as' => 'show-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@show']);
-    Route::post('/delete-slide', ['as' => 'delete-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@destroy']);
-    Route::post('/update-active-slide', ['as' => 'update-active-slide', 'uses' => 'App\Http\Controllers\Admin\Home\SliderController@updateOne']);
 
    
 //=====Roles Route======
@@ -132,15 +81,6 @@ Route::post('/show-role', ['as' => 'show-role', 'uses' => 'App\Http\Controllers\
 Route::post('/delete-role', ['as' => 'delete-role', 'uses' => 'App\Http\Controllers\Admin\Menu\RoleController@destroy']);
 Route::post('/update-one-role', ['as' => 'update-one-role', 'uses' => 'App\Http\Controllers\Admin\Menu\RoleController@updateOneRole']);
 Route::post('/list-role-wise-permission', ['as' => 'list-role-wise-permission', 'uses' => 'App\Http\Controllers\Admin\Menu\RoleController@listRoleWisePermission']);
-
-Route::get('/list-incident-type', ['as' => 'list-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@index']);
-Route::get('/add-incident-type', ['as' => 'add-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@add']);
-Route::post('/add-incident-type', ['as' => 'add-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@store']);
-Route::get('/edit-incident-type/{edit_id}', ['as' => 'edit-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@edit']);
-Route::post('/update-incident-type', ['as' => 'update-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@update']);
-Route::post('/show-incident-type', ['as' => 'show-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@show']);
-Route::post('/delete-incident-type', ['as' => 'delete-incident-type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@destroy']);
-Route::post('/update-one-incident_type', ['as' => 'update-one-incident_type', 'uses' => 'App\Http\Controllers\Admin\Master\IncidentTypeController@updateOne']);
 
 
 Route::get('/list-gender', ['as' => 'list-gender', 'uses' => 'App\Http\Controllers\Admin\Master\GenderController@index']);
@@ -218,9 +158,41 @@ Route::get('/list-project-wise-labour-reports', ['as' => 'list-project-wise-labo
 
 // Route::get('/db-backup', ['as' => 'db-backup', 'uses' => 'App\Http\Controllers\DBBackup\DBBackupController@downloadBackup']);
 
+// routes for tablet watap
 Route::get('/log-out', ['as' => 'log-out', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\LoginController@logout']);
 
-Route::get('/list-gramsevak-tablet-distribution', ['as' => 'list-gramsevak-tablet-distribution', 'uses' => 'App\Http\Controllers\Admin\Reports\ReportsController@getAllLabourLocation']);
+Route::get('/list-district', ['as' => 'list-district', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@index']);
+Route::get('/add-district', ['as' => 'add-district', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@addDistrict']);
+Route::post('/add-district', ['as' => 'add-district', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@addDistrictInsert']);
+Route::post('/update-active-dist', ['as' => 'update-active-dist', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@updateOneDistrict']);
+Route::get('/edit-district/{edit_id}', ['as' => 'edit-district', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@editDistrict']);
+Route::post('/update-district', ['as' => 'update-district', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@updateDistrict']);
+Route::post('/delete-district', ['as' => 'delete-district', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@deleteDistrict']);
+
+
+
+
+Route::get('/list-taluka', ['as' => 'list-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@getTalukaList']);
+Route::get('/add-taluka', ['as' => 'add-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@addTaluka']);
+Route::post('/add-taluka', ['as' => 'add-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@addTalukaInsert']);
+Route::post('/update-active-taluka', ['as' => 'update-active-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@updateOneTaluka']);
+Route::get('/edit-taluka/{edit_id}', ['as' => 'edit-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@editTaluka']);
+Route::post('/update-taluka', ['as' => 'update-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@updateTaluka']);
+Route::post('/delete-taluka', ['as' => 'delete-taluka', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@deleteTaluka']);
+
+
+
+Route::get('/list-village', ['as' => 'list-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@getVillageList']);
+Route::get('/add-village', ['as' => 'add-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@addVillage']);
+Route::post('/add-village', ['as' => 'add-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@addVillageInsert']);
+Route::post('/update-active-village', ['as' => 'update-active-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@updateOneVillage']);
+Route::get('/edit-village/{edit_id}', ['as' => 'edit-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@editVillage']);
+Route::post('/update-village', ['as' => 'update-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@updateVillage']);
+Route::post('/delete-village', ['as' => 'delete-village', 'uses' => 'App\Http\Controllers\Admin\Area\AreaController@deleteVillage']);
+
+
+Route::get('/list-gramsevak-tablet-distribution', ['as' => 'list-gramsevak-tablet-distribution', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@index']);
+Route::post('/show-tablet-distribution', ['as' => 'show-tablet-distribution', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@showTabletDistribution']);
 
 
 });

@@ -24,7 +24,10 @@ class UsersSeeder extends Seeder
                 'm_name' => 'mname',
                 'l_name' => 'lname',
                 'number' => 'number',
+<<<<<<< HEAD
+=======
                 // 'imei_no' => 'imei_no',
+>>>>>>> d17904f8fb4fc08fa57f40f12c8d30b7023d7286
                 'aadhar_no' => 'aadhar_no',
                 'address' => 'address',
                 'state' => 'state',
@@ -49,7 +52,6 @@ class UsersSeeder extends Seeder
             'm_name' => 'mname',
             'l_name' => 'lname',
             'number' => 'number',
-            // 'imei_no' => 'imei_no',
             'aadhar_no' => 'aadhar_no',
             'address' => 'address',
             'state' => 'state',
