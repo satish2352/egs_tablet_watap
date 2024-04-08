@@ -12,7 +12,8 @@ use App\Models\ {
     Documenttype,
     Registrationstatus,
     Reasons,
-    DocumentReasons
+    DocumentReasons,
+    TblArea
 };
 
 class AllMasterController extends Controller
