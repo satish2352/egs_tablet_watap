@@ -171,6 +171,80 @@ class GramSevakTabletDistributionController extends Controller
         }
 
     }
+
+
+    public function getAllTabletDistributionViewPerticular(Request $request){
+    
+        try {
+
+            $all_data_validation = [
+                'id' => 'required',
+            ];
+          
+            $validator = Validator::make($request->all(), $all_data_validation);
+    
+            if ($validator->fails()) {
+                return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 200);
+            }
+
+            $user = Auth::user()->id;
+            
+            $basic_query_object = GramSevakTabletDistribution::leftJoin('tbl_area as district_labour', 'gram_sevak_tablet_distribution.district_id', '=', 'district_labour.location_id')
+                ->leftJoin('tbl_area as taluka_labour', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_labour.location_id')
+                ->leftJoin('tbl_area as village_labour', 'gram_sevak_tablet_distribution.village_id', '=', 'village_labour.location_id')
+                ->where('gram_sevak_tablet_distribution.user_id', $user)
+                ->where('gram_sevak_tablet_distribution.id', $request->id);
+                
+
+            if ($request->has('district_id')) {
+                $basic_query_object->where('district_labour.location_id', $request->input('district_id'));
+            }
+            if ($request->has('taluka_id')) {
+                $basic_query_object->where('taluka_labour.location_id', $request->input('taluka_id'));
+            }
+            if ($request->has('village_id')) {
+                $basic_query_object->where('village_labour.location_id', $request->input('village_id'));
+            }
+
+            $basic_query_object = $basic_query_object->distinct('gram_sevak_tablet_distribution.id');
+
+
+                $data_output  = $basic_query_object
+                ->select(
+                    'gram_sevak_tablet_distribution.id',
+                    'gram_sevak_tablet_distribution.full_name',
+                    'gram_sevak_tablet_distribution.district_id',
+                    'district_labour.name as district_name',
+                    'gram_sevak_tablet_distribution.taluka_id',
+                    'taluka_labour.name as taluka_name',
+                    'gram_sevak_tablet_distribution.village_id',
+                    'village_labour.name as village_name',
+                    'gram_sevak_tablet_distribution.mobile_number',
+                    'gram_sevak_tablet_distribution.latitude',
+                    'gram_sevak_tablet_distribution.longitude',
+                    'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
+                    'gram_sevak_tablet_distribution.aadhar_image',
+                    'gram_sevak_tablet_distribution.photo_of_beneficiary',
+                    'gram_sevak_tablet_distribution.photo_of_tablet_imei',
+    
+                    
+                    )->first();
+
+                foreach ($data_output as $labour) {
+                    // Append image paths to the output data
+                    $labour->gram_sevak_id_card_photo = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->gram_sevak_id_card_photo;
+                    $labour->aadhar_image = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->aadhar_image;
+                    $labour->photo_of_beneficiary = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_beneficiary;
+                    $labour->photo_of_tablet_imei = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_tablet_imei;
+
+                }
+
+            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully',  'data' => $data_output], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
+        }
+
+    }
    
     public function updateLabourFirstForm(Request $request){
     try {

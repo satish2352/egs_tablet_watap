@@ -21,6 +21,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/list-masters', [AllMasterController::class, 'getAllMasters']);
 Route::post('/list-masters-updated', [AllMasterController::class, 'getAllMastersUpdated']);
 
+
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -32,6 +34,7 @@ Route::group([
          //=============Start labour=================
         Route::post('/add-tablet-info', [GramSevakTabletDistributionController::class, 'add']);
         Route::post('/list-tablet-distribution-info', [GramSevakTabletDistributionController::class, 'getAllTabletDistributionList']);
+        Route::post('/get-tablet-distribution-perticular-info', [GramSevakTabletDistributionController::class, 'getAllTabletDistributionViewPerticular']);
      
         Route::post('/update-labour-first-form', [GramSevakTabletDistributionController::class, 'updateLabourFirstForm']);
         Route::post('/adhar-card-exist', [GramSevakTabletDistributionController::class, 'adharCardExist']);
