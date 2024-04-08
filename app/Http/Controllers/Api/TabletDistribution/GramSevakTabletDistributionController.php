@@ -158,7 +158,7 @@ class GramSevakTabletDistributionController extends Controller
                 }
 
                 if(sizeof($data_output)>1) {
-                    $totalPages = round($totalRecords/sizeof($data_output));
+                    $totalPages = round($totalRecords/$rowperpage);
                 } else {
                     $totalPages = 1;
                 }
