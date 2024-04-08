@@ -157,12 +157,14 @@ class GramSevakTabletDistributionController extends Controller
 
                 }
 
-                $response = array(
-                    "iTotalRecords"        => $totalRecords,
-                    "aaData"               => $data_output
-                );
+                if(sizeof($data_output)>1) {
+                    $totalPages = round($totalRecords/sizeof($data_output));
+                } else {
+                    $totalPages = 1;
+                }
+               
           
-            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', 'data' => $response], 200);
+            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', "iTotalRecords" => $totalRecords, "totalPages"=>$totalPages, 'data' => $data_output], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
         }
