@@ -162,6 +162,7 @@ class GramSevakTabletDistributionController extends Controller
                 } else {
                     $totalPages = 1;
                 }
+                
                
           
             return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', "iTotalRecords" => $totalRecords, "totalPages"=>$totalPages, 'data' => $data_output], 200);
