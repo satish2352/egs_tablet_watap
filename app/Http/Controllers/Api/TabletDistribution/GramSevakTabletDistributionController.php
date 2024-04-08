@@ -228,7 +228,7 @@ class GramSevakTabletDistributionController extends Controller
                     'gram_sevak_tablet_distribution.photo_of_tablet_imei',
     
                     
-                    )->first();
+                    )->get();
 
                 foreach ($data_output as $labour) {
                     // Append image paths to the output data
