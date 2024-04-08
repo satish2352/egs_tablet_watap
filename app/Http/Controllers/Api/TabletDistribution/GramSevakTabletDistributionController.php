@@ -157,12 +157,12 @@ class GramSevakTabletDistributionController extends Controller
 
                 }
 
-                if(sizeof($data_output)>1) {
+                if(sizeof($data_output)>=1) {
                     $totalPages = ceil($totalRecords/$rowperpage);
                 } else {
                     $totalPages = 1;
                 }
-                
+
                
           
             return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', "iTotalRecords" => $totalRecords, "totalPages"=>$totalPages, 'data' => $data_output], 200);
