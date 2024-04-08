@@ -72,6 +72,7 @@ class AreaRepository
 		$user_data = TblArea::where('location_id',$request['edit_id']) 
 						->update([
 							'name' => $request['name'],
+							'is_new' => '1',
 							'is_active' => isset($request['is_active']) ? true :false,
 						]);
 		
@@ -179,6 +180,7 @@ class AreaRepository
 						->update([
 							'name' => $request['name'],
 							'parent_id' => $request['district'],
+							'is_new' => '1',
 							'is_active' => isset($request['is_active']) ? true :false,
 						]);
 		
@@ -322,6 +324,7 @@ class AreaRepository
 						->update([
 							'name' => $request['name'],
 							'parent_id' => $request['taluka'],
+							'is_new' => '1',
 							'is_active' => isset($request['is_active']) ? true :false,
 						]);
 		
