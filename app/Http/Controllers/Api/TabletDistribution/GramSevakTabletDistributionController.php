@@ -226,7 +226,11 @@ class GramSevakTabletDistributionController extends Controller
                     'gram_sevak_tablet_distribution.aadhar_image',
                     'gram_sevak_tablet_distribution.photo_of_beneficiary',
                     'gram_sevak_tablet_distribution.photo_of_tablet_imei',
-    
+                    'gram_sevak_tablet_distribution.gram_panchayat_name',
+                    'gram_sevak_tablet_distribution.adhar_card_number',
+
+
+                   
                     
                     )->get();
 
