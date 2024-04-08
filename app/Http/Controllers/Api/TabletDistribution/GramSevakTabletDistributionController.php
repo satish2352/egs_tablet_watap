@@ -96,45 +96,57 @@ class GramSevakTabletDistributionController extends Controller
     public function getAllTabletDistributionList(Request $request){
     
         try {
+
+            $page = isset($request["start"]) ? $request["start"] : 1;
+            $rowperpage = isset($request["length"])? $request["length"] : 10; // Rows display per pa]e
+
+            $start = ($page - 1) * $rowperpage;
+
             $data_output = [];
             $user = Auth::user()->id;
             
-         
-            $data_output = GramSevakTabletDistribution::leftJoin('tbl_area as district_labour', 'gram_sevak_tablet_distribution.district_id', '=', 'district_labour.location_id')
+            $basic_query_object = GramSevakTabletDistribution::leftJoin('tbl_area as district_labour', 'gram_sevak_tablet_distribution.district_id', '=', 'district_labour.location_id')
                 ->leftJoin('tbl_area as taluka_labour', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_labour.location_id')
                 ->leftJoin('tbl_area as village_labour', 'gram_sevak_tablet_distribution.village_id', '=', 'village_labour.location_id')
                 ->where('gram_sevak_tablet_distribution.user_id', $user);
                 
 
             if ($request->has('district_id')) {
-                $data_output->where('district_labour.location_id', $request->input('district_id'));
+                $basic_query_object->where('district_labour.location_id', $request->input('district_id'));
             }
             if ($request->has('taluka_id')) {
-                $data_output->where('taluka_labour.location_id', $request->input('taluka_id'));
+                $basic_query_object->where('taluka_labour.location_id', $request->input('taluka_id'));
             }
             if ($request->has('village_id')) {
-                $data_output->where('village_labour.location_id', $request->input('village_id'));
+                $basic_query_object->where('village_labour.location_id', $request->input('village_id'));
             }
 
-            $data_output = $data_output->select(
-                'gram_sevak_tablet_distribution.id',
-                'gram_sevak_tablet_distribution.full_name',
-                'gram_sevak_tablet_distribution.district_id',
-                'district_labour.name as district_name',
-                'gram_sevak_tablet_distribution.taluka_id',
-                'taluka_labour.name as taluka_name',
-                'gram_sevak_tablet_distribution.village_id',
-                'village_labour.name as village_name',
-                'gram_sevak_tablet_distribution.mobile_number',
-                'gram_sevak_tablet_distribution.latitude',
-                'gram_sevak_tablet_distribution.longitude',
-                'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
-                'gram_sevak_tablet_distribution.aadhar_image',
-                'gram_sevak_tablet_distribution.photo_of_beneficiary',
-                'gram_sevak_tablet_distribution.photo_of_tablet_imei',
+            $basic_query_object = $basic_query_object->distinct('gram_sevak_tablet_distribution.id');
 
-                
-                )->distinct('gram_sevak_tablet_distribution.id')->get();
+                $totalRecords = $basic_query_object->select('gram_sevak_tablet_distribution.id')->get()->count();
+
+                $data_output  = $basic_query_object
+                ->select(
+                    'gram_sevak_tablet_distribution.id',
+                    'gram_sevak_tablet_distribution.full_name',
+                    'gram_sevak_tablet_distribution.district_id',
+                    'district_labour.name as district_name',
+                    'gram_sevak_tablet_distribution.taluka_id',
+                    'taluka_labour.name as taluka_name',
+                    'gram_sevak_tablet_distribution.village_id',
+                    'village_labour.name as village_name',
+                    'gram_sevak_tablet_distribution.mobile_number',
+                    'gram_sevak_tablet_distribution.latitude',
+                    'gram_sevak_tablet_distribution.longitude',
+                    'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
+                    'gram_sevak_tablet_distribution.aadhar_image',
+                    'gram_sevak_tablet_distribution.photo_of_beneficiary',
+                    'gram_sevak_tablet_distribution.photo_of_tablet_imei',
+    
+                    
+                    )->skip($start)
+                ->take($rowperpage)
+                ->get();
 
                 foreach ($data_output as $labour) {
                     // Append image paths to the output data
@@ -144,8 +156,13 @@ class GramSevakTabletDistributionController extends Controller
                     $labour->photo_of_tablet_imei = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_tablet_imei;
 
                 }
+
+                $response = array(
+                    "iTotalRecords"        => $totalRecords,
+                    "aaData"               => $data_output
+                );
           
-            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', 'data' => $data_output], 200);
+            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', 'data' => $response], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
         }
