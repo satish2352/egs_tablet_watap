@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Labour;
+namespace App\Http\Controllers\Api\TabletDistribution;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Config;
 
 
 
-class LabourController extends Controller
+class GramSevakTabletDistributionController extends Controller
 {
     public function add(Request $request ){
+
         $all_data_validation = [
             'full_name' => 'required',
             'district_id' => 'required', 
@@ -28,6 +29,7 @@ class LabourController extends Controller
             'aadhar_image' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',  
             'gram_sevak_id_card_photo' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048', 
             'photo_of_beneficiary' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',
+            'photo_of_tablet_imei' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',
         ];
       
         $validator = Validator::make($request->all(), $all_data_validation);
@@ -53,34 +55,37 @@ class LabourController extends Controller
             $labour_data->latitude = $request->latitude;
             $labour_data->longitude = $request->longitude;
 
+
             $labour_data->save();
 
             $last_insert_id = $labour_data->id;
             $imageAadhar = $last_insert_id . '_' . rand(100000, 999999) . '_aadhar.' . $request->aadhar_image->extension();
             $gram_sevak_id_card_photo = $last_insert_id . '_' . rand(100000, 999999) . '_profile.' . $request->gram_sevak_id_card_photo->extension();
             $photo_of_beneficiary = $last_insert_id . '_' . rand(100000, 999999) . '_voter.' . $request->photo_of_beneficiary->extension();
+            $photo_of_tablet_imei = $last_insert_id . '_' . rand(100000, 999999) . '_photo_of_tablet_imei.' . $request->photo_of_tablet_imei->extension();
 
             $path = Config::get('DocumentConstant.USER_GRAMSEVAK_ADD');
 
             uploadImage($request, 'aadhar_image', $path, $imageAadhar);
             uploadImage($request, 'gram_sevak_id_card_photo', $path, $gram_sevak_id_card_photo);
             uploadImage($request, 'photo_of_beneficiary', $path, $photo_of_beneficiary);
+            uploadImage($request, 'photo_of_tablet_imei', $path, $photo_of_tablet_imei);
 
             // Update the image paths in the database
             $labour_data->aadhar_image =  $imageAadhar;
             $labour_data->gram_sevak_id_card_photo = $gram_sevak_id_card_photo;
             $labour_data->photo_of_beneficiary =  $photo_of_beneficiary;
+            $labour_data->photo_of_tablet_imei =  $photo_of_tablet_imei;
             $labour_data->save();
 
             // Include image paths in the response
             $labour_data->aadhar_image = $labour_data->aadhar_image;
-            $labour_data->mgnrega_image = $labour_data->mgnrega_image;
             $labour_data->gram_sevak_id_card_photo = $labour_data->gram_sevak_id_card_photo;
-            $labour_data->photo_of_beneficiary = $labour_data->photo_of_beneficiary;
+            $labour_data->photo_of_tablet_imei = $labour_data->photo_of_tablet_imei;
 
             return response()->json([
                 'status' => 'True',
-                'message' => 'Labor added successfully',
+                'message' => 'Tablet distribution information added successfully',
             ]);
 
         } catch (\Exception $e) {
@@ -88,59 +93,79 @@ class LabourController extends Controller
         }
     }
    
-    public function getAllLabourList(Request $request){
+    public function getAllTabletDistributionList(Request $request){
     
         try {
+
+            $page = isset($request["start"]) ? $request["start"] : 1;
+            $rowperpage = isset($request["length"])? $request["length"] : 10; // Rows display per pa]e
+
+            $start = ($page - 1) * $rowperpage;
+
             $data_output = [];
             $user = Auth::user()->id;
             
-         
-            $data_output = GramSevakTabletDistribution::leftJoin('tbl_area as district_labour', 'labour.district_id', '=', 'district_labour.location_id')
-                ->leftJoin('tbl_area as taluka_labour', 'labour.taluka_id', '=', 'taluka_labour.location_id')
-                ->leftJoin('tbl_area as village_labour', 'labour.village_id', '=', 'village_labour.location_id')
-                ->where('labour.user_id', $user);
+            $basic_query_object = GramSevakTabletDistribution::leftJoin('tbl_area as district_labour', 'gram_sevak_tablet_distribution.district_id', '=', 'district_labour.location_id')
+                ->leftJoin('tbl_area as taluka_labour', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_labour.location_id')
+                ->leftJoin('tbl_area as village_labour', 'gram_sevak_tablet_distribution.village_id', '=', 'village_labour.location_id')
+                ->where('gram_sevak_tablet_distribution.user_id', $user);
                 
 
             if ($request->has('district_id')) {
-                $data_output->where('district_labour.location_id', $request->input('district_id'));
+                $basic_query_object->where('district_labour.location_id', $request->input('district_id'));
             }
             if ($request->has('taluka_id')) {
-                $data_output->where('taluka_labour.location_id', $request->input('taluka_id'));
+                $basic_query_object->where('taluka_labour.location_id', $request->input('taluka_id'));
             }
             if ($request->has('village_id')) {
-                $data_output->where('village_labour.location_id', $request->input('village_id'));
+                $basic_query_object->where('village_labour.location_id', $request->input('village_id'));
             }
 
-            $data_output = $data_output->select(
-                'gram_sevak_tablet_distribution.id',
-                'gram_sevak_tablet_distribution.full_name',
-                'gram_sevak_tablet_distribution.district_id',
-                'district_labour.name as district_name',
-                'gram_sevak_tablet_distribution.taluka_id',
-                'taluka_labour.name as taluka_name',
-                'gram_sevak_tablet_distribution.village_id',
-                'village_labour.name as village_name',
-                'gram_sevak_tablet_distribution.mobile_number',
-                'gram_sevak_tablet_distribution.latitude',
-                'gram_sevak_tablet_distribution.longitude',
-                'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
-                'gram_sevak_tablet_distribution.aadhar_image',
-                'gram_sevak_tablet_distribution.photo_of_beneficiary',
-                )->distinct('gram_sevak_tablet_distribution.id')->get();
+            $basic_query_object = $basic_query_object->distinct('gram_sevak_tablet_distribution.id');
+
+                $totalRecords = $basic_query_object->select('gram_sevak_tablet_distribution.id')->get()->count();
+
+                $data_output  = $basic_query_object
+                ->select(
+                    'gram_sevak_tablet_distribution.id',
+                    'gram_sevak_tablet_distribution.full_name',
+                    'gram_sevak_tablet_distribution.district_id',
+                    'district_labour.name as district_name',
+                    'gram_sevak_tablet_distribution.taluka_id',
+                    'taluka_labour.name as taluka_name',
+                    'gram_sevak_tablet_distribution.village_id',
+                    'village_labour.name as village_name',
+                    'gram_sevak_tablet_distribution.mobile_number',
+                    'gram_sevak_tablet_distribution.latitude',
+                    'gram_sevak_tablet_distribution.longitude',
+                    'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
+                    'gram_sevak_tablet_distribution.aadhar_image',
+                    'gram_sevak_tablet_distribution.photo_of_beneficiary',
+                    'gram_sevak_tablet_distribution.photo_of_tablet_imei',
+    
+                    
+                    )->skip($start)
+                ->take($rowperpage)
+                ->get();
 
                 foreach ($data_output as $labour) {
                     // Append image paths to the output data
                     $labour->gram_sevak_id_card_photo = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->gram_sevak_id_card_photo;
                     $labour->aadhar_image = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->aadhar_image;
                     $labour->photo_of_beneficiary = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_beneficiary;
+                    $labour->photo_of_tablet_imei = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_tablet_imei;
 
                 }
-          
+
+                if(sizeof($data_output)>=1) {
+                    $totalPages = ceil($totalRecords/$rowperpage);
+                } else {
+                    $totalPages = 1;
+                }
+
                
-
-           
-
-            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', 'data' => $data_output], 200);
+          
+            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', "iTotalRecords" => $totalRecords, "totalPages"=>$totalPages, 'data' => $data_output], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
         }
@@ -193,11 +218,10 @@ class LabourController extends Controller
     }
    }
 
-    public function mgnregaCardIdAlreadyExist(Request $request) {
+    public function adharCardExist(Request $request) {
         try {
             $validator = Validator::make($request->all(), [
                 'adhar_card_number' => 'required',
-                'mobile_number' => 'required'
             ]);
     
             if ($validator->fails()) {
@@ -207,16 +231,11 @@ class LabourController extends Controller
             $GramSevakTabletDistribution = GramSevakTabletDistribution::where('adhar_card_number', $request->adhar_card_number)->first();
 
             if (!$GramSevakTabletDistribution) {
-                return response()->json(['status' => 'error', 'message' => 'Labour not found'], 200);
-            }
-
-           
-    
-            if (($GramSevakTabletDistribution->mobile_number == $request->mobile_number ) || ($GramSevakTabletDistribution->adhar_card_number == $request->adhar_card_number ) ) {
-                return response()->json(['status' => 'true', 'message' => 'Adhar  card ID  Or Mobile Number already exists'], 200);
+                return response()->json(['status' => 'false', 'message' => 'Gramsevak not found'], 200);
             } else {
-                return response()->json(['status' => 'false', 'message' => 'Adhar  card ID  Or Mobile Number does not exist'], 200);
+                return response()->json(['status' => 'true', 'message' => 'Gramsevak found'], 200);
             }
+           
     
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Update failed','error' => $e->getMessage()], 500);
