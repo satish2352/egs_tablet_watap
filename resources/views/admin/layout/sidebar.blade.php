@@ -98,6 +98,40 @@
                   </li>
              @endif
 
+             
+                  <li class="{{request()->is('list-role*')
+                    ? 'nav-item active' : 'nav-item' }}">
+                      <a class="{{request()->is('list-role*')
+                                    ? 'nav-link active' : 'nav-link' }}" data-toggle="collapse" href="#master" aria-expanded="false"
+                          aria-controls="master">
+                          <i class="fa fa-th-large menu-icon"></i>
+                          <span class="menu-title">Area</span>
+                          <i class="menu-arrow"></i>
+                      </a>
+                      <div class="collapse" id="master">
+                          <ul class="nav flex-column sub-menu">
+                              <!-- @if (in_array('list-role', $data_for_url)) -->
+                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-district*')
+                                    ? 'nav-link active' : 'nav-link' }}"
+                                          href="{{ route('list-district') }}">District</a></li>
+                              <!-- @endif -->
+                              <!-- @if (in_array('list-gender', $data_for_url)) -->
+                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-taluka*')
+                                    ? 'nav-link active' : 'nav-link' }}"
+                                          href="{{ route('list-taluka') }}">Taluka</a></li>
+                              <!-- @endif -->
+                              <!-- @if (in_array('list-maritalstatus', $data_for_url)) -->
+                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-village*')
+                                    ? 'nav-link active' : 'nav-link' }}"
+                                          href="{{ route('list-village') }}">Village</a></li>
+                              <!-- @endif -->
+                              
+
+                          </ul>
+                      </div>
+                  </li>
+         
+
 
              @if (in_array('list-users', $data_for_url))
         <li class="{{request()->is('list-users*')
@@ -109,7 +143,14 @@
               </a>
           </li>
              @endif
-
+             <li class="{{request()->is('list-gramsevak-tablet-distribution*')
+                ? 'nav-item active' : 'nav-item' }}">
+                <?php $currenturl = Request::url(); ?>
+                <a class="nav-link" href="{{ route('list-gramsevak-tablet-distribution') }}">
+                    <i class="fas fa-file-alt fa-lg menu-icon"></i>
+                    <span class="menu-title">Tablet Distribution</span>
+                </a>
+            </li>
 
            
             @if (in_array('list-gramsevak', $data_for_url))
@@ -121,46 +162,7 @@
                     <span class="menu-title">Gramsevak Management</span>
                 </a>
             </li>
-            @endif
-
-          
-
-            <li class="{{request()->is('list-role*') 
-                ? 'nav-item active' : 'nav-item' }}">
-                  <a class="{{request()->is('list-role*')
-                                ? 'nav-link active' : 'nav-link' }}" data-toggle="collapse" href="#report" aria-expanded="false"
-                      aria-controls="report">
-                      <i class="fas fa-window-restore menu-icon"></i>
-                      <span class="menu-title">Reports</span>
-                      <i class="menu-arrow"></i>
-                  </a>
-                  <div class="collapse" id="report">
-                      <ul class="nav flex-column sub-menu">
-                          {{-- @if (in_array('list-role', $data_for_url)) --}}
-                              <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-location-report*')
-                                ? 'nav-link active' : 'nav-link' }}"
-                                      href="{{ route('list-location-report') }}">Location Report</a></li>
-                          {{-- @endif --}}
-                          {{-- @if (in_array('list-labour-duration-report', $data_for_url)) --}}
-                              <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-labour-duration-report*')
-                                ? 'nav-link active' : 'nav-link' }}"
-                                      href="{{ route('list-labour-duration-report') }}">Duration Report</a></li>
-                          {{-- @endif --}}
-                          {{-- @if (in_array('list-project-report', $data_for_url)) --}}
-                              <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-project-report*')
-                                ? 'nav-link active' : 'nav-link' }}"
-                                      href="{{ route('list-project-report') }}">Project Report</a></li>
-                          {{-- @endif --}}
-                          {{-- @if (in_array('list-project-and-location-report', $data_for_url)) --}}
-                              <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-project-and-location-report*')
-                                ? 'nav-link active' : 'nav-link' }}"
-                                      href="{{ route('list-project-and-location-report') }}">Project and Location</a></li>
-                          {{-- @endif --}}
-                      </ul>
-                  </div>
-              </li>
-
-              
+            @endif           
            
  
       {{-- @endif --}}
