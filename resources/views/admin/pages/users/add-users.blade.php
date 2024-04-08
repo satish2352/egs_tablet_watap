@@ -49,27 +49,6 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label for="role_id">Role Type</label>&nbsp<span class="red-text">*</span>
-                                            <select class="form-control" id="role_id" name="role_id"
-                                                onchange="myFunction(this.value)">
-                                                <option value="">Select</option>
-                                                @foreach ($roles as $role)
-                                                    @if (old('role_id') == $role['id'])
-                                                        <option value="{{ $role['id'] }}" selected>
-                                                            {{ $role['role_name'] }}</option>
-                                                    @else
-                                                        <option value="{{ $role['id'] }}">{{ $role['role_name'] }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            @if ($errors->has('role_id'))
-                                                <span class="red-text"><?php echo $errors->first('role_id', ':message'); ?></span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="form-group">
                                             <label for="password">Password</label>&nbsp<span class="red-text">*</span>
                                             <input type="password" class="password form-control" name="password"
                                                 id="password" placeholder="" value="{{ old('password') }}">
@@ -241,75 +220,6 @@
                                         
                                     </div>
                                     
-                                    <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #040479;padding: 2%;">
-                                        <h5 class="d-flex justify-content-center mb-4">User Working Details</h5>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="usertype_name">User Type</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_type" id="user_type">
-                                                        <option value="">Select User Type</option>
-                                                        @foreach ($dynamic_usertype as $usertype)
-                                                            @if (old('usertype_name') == $usertype['id'])
-                                                                <option value="{{ $usertype['id'] }}" selected>
-                                                                    {{ $usertype['usertype_name'] }}</option>
-                                                            @else
-                                                                <option value="{{ $usertype['id'] }}">
-                                                                    {{ $usertype['usertype_name'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('usertype_name'))
-                                                        <span class="red-text"><?php echo $errors->first('usertype_name', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="district">User District</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_district" id="user_district">
-                                                        <option value="">Select District</option>
-                                                        @foreach ($dynamic_district as $district)
-                                                            @if (old('district') == $district['location_id'])
-                                                                <option value="{{ $district['location_id'] }}" selected>
-                                                                    {{ $district['name'] }}</option>
-                                                            @else
-                                                                <option value="{{ $district['location_id'] }}">
-                                                                    {{ $district['name'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('district'))
-                                                        <span class="red-text"><?php echo $errors->first('district', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="taluka">User Taluka</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_taluka" id="user_taluka">
-                                                        <option value="">Select Taluka</option>
-                                                    </select>
-                                                    @if ($errors->has('taluka'))
-                                                        <span class="red-text"><?php echo $errors->first('taluka', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="village">User Village</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_village" id="user_village">
-                                                        <option value="">Select Village</option>
-                                                    </select>
-                                                    @if ($errors->has('village'))
-                                                        <span class="red-text"><?php echo $errors->first('village', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="col-lg-12 col-md-12 col-sm-12 user_tbl">
                                         <div id="data_for_role">
@@ -445,41 +355,7 @@
                 });
             });
         </script>
-        
-        <!-- <script>
-            $(document).ready(function() {
-
-                $('#state').change(function(e) {
-                    e.preventDefault();
-                    var stateId = $('#state').val();
-                    // console.log(stateId);
-                    $('#city').html('<option value="">Select City</option>');
-
-                    if (stateId !== '') {
-                        $.ajax({
-                            url: '{{ route('cities') }}',
-                            type: 'GET',
-                            data: {
-                                stateId: stateId
-                            },
-                            // headers: {
-                            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            // },
-                            success: function(response) {
-                                console.log(response);
-                                if (response.city.length > 0) {
-                                    $.each(response.city, function(index, city) {
-                                        $('#city').append('<option value="' + city
-                                            .location_id +
-                                            '">' + city.name + '</option>');
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-        </script> -->
+       
         <script>
             function myFunction(role_id) {
                 // alert(role_id);
