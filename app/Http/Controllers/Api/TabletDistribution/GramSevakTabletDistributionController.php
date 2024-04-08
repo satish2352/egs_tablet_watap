@@ -131,6 +131,9 @@ class GramSevakTabletDistributionController extends Controller
                 'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
                 'gram_sevak_tablet_distribution.aadhar_image',
                 'gram_sevak_tablet_distribution.photo_of_beneficiary',
+                'gram_sevak_tablet_distribution.photo_of_tablet_imei',
+
+                
                 )->distinct('gram_sevak_tablet_distribution.id')->get();
 
                 foreach ($data_output as $labour) {
@@ -138,13 +141,10 @@ class GramSevakTabletDistributionController extends Controller
                     $labour->gram_sevak_id_card_photo = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->gram_sevak_id_card_photo;
                     $labour->aadhar_image = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->aadhar_image;
                     $labour->photo_of_beneficiary = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_beneficiary;
+                    $labour->photo_of_tablet_imei = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_tablet_imei;
 
                 }
           
-               
-
-           
-
             return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', 'data' => $data_output], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
