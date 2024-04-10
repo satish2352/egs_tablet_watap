@@ -38,7 +38,7 @@
                   </a>
               </li>    
               @endif
-              @if (in_array('list-role', $data_for_url) || in_array('list-documenttype', $data_for_url) ||
+              <!-- @if (in_array('list-role', $data_for_url) || in_array('list-documenttype', $data_for_url) ||
                       in_array('list-gender', $data_for_url))
                   <li class="{{request()->is('list-role*')
                     ? 'nav-item active' : 'nav-item' }}">
@@ -70,7 +70,7 @@
                           </ul>
                       </div>
                   </li>
-             @endif
+             @endif -->
 
              
                   <li class="{{request()->is('list-role*')

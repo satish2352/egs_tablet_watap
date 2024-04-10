@@ -309,7 +309,7 @@
 // });
 </script>
      
-        <form method="POST" action="{{ url('/show-tablet-distribution') }}" id="showform">
+        <form method="POST" action="{{ url('/show-distributer-baneficiary-details') }}" id="showform">
             @csrf
             <input type="hidden" name="show_id" id="show_id" value="">
         </form>

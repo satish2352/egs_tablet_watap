@@ -110,13 +110,8 @@ class RegisterController extends Controller {
                             ->orderBy('name', 'asc')
                             ->get()
                             ->toArray();
-        $dynamic_usertype = Usertype::where('is_active', true)
-                            ->select('id','usertype_name')
-                            ->orderBy('usertype_name', 'asc')
-                            ->get()
-                            ->toArray();
         $user_data = $this->service->editUsers($request);
-        return view('admin.pages.users.edit-users',compact('user_data','dynamic_district','dynamic_usertype'));
+        return view('admin.pages.users.edit-users',compact('user_data','dynamic_district'));
     }
 
     public function update(Request $request){
@@ -124,10 +119,6 @@ class RegisterController extends Controller {
         // return view('admin.pages.users.users-list',compact('user_data'));
 
         $rules = [
-            // 'email' => 'required',
-            // 'u_uname' => 'required',
-            // 'password' => 'required',
-            'role_id' => 'required',
             'f_name' => 'required|regex:/^[a-zA-Z\s]+$/u|max:255',
             'm_name' => 'required|regex:/^[a-zA-Z\s]+$/u|max:255',
             'l_name' => 'required|regex:/^[a-zA-Z\s]+$/u|max:255',
@@ -138,10 +129,6 @@ class RegisterController extends Controller {
             'taluka' => 'required',
             'village' => 'required',
             'village' => 'required',
-            'user_type' => 'required',
-            'user_district' => 'required',
-            'user_taluka' => 'required',
-            'user_village' => 'required',
             'pincode' => 'required|regex:/^[0-9]{6}$/',
          ];       
 
@@ -150,7 +137,6 @@ class RegisterController extends Controller {
                         // 'email.email' => 'Please enter valid email.',
                         // 'u_uname.required' => 'Please enter user uname.',
                         // 'password.required' => 'Please enter password.',
-                        'role_id.required' => 'Please select role type.',
                         'f_name.required' => 'Please enter first name.',
                          'f_name.regex' => 'Please  enter text only.',
                         'f_name.max'   => 'Please  enter first name length upto 255 character only.',
@@ -178,10 +164,6 @@ class RegisterController extends Controller {
                         'district.required' =>'Please select District.',
                         'taluka.required' =>'Please select Taluka.',
                         'village.required' =>'Please select Village.',
-                        'user_type' => 'Please select User Type.',
-                        'user_district' => 'Please select District.',
-                        'user_taluka' => 'Please select Taluka.',
-                        'user_village' => 'Please select Village.',
                         'pincode.required' => 'Please enter pincode.',
                         'pincode.regex' => 'Please enter a 6-digit pincode.',
                     ];

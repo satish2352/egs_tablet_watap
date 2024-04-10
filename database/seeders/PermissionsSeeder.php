@@ -49,9 +49,9 @@ class PermissionsSeeder extends Seeder
                 [
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
-                    'route_name' => 'Distributer Managment',
+                    'route_name' => 'Distributor Managment',
                     'url' => 'list-users',
-                    'permission_name' => 'Distributer Managment',
+                    'permission_name' => 'Distributor Managment',
                 ]);
             Permissions::create(
                 [

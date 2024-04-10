@@ -59,7 +59,7 @@
                                                 Save &amp; Update
                                             </button>
                                         {{-- <button type="reset" class="btn btn-sm btn-danger">Cancel</button> --}}
-                                        <span><a href="{{ route('list-users') }}"
+                                        <span><a href="{{ route('list-district') }}"
                                                 class="btn btn-sm btn-primary ">Back</a></span>
                                     </div>
                                     

@@ -41,8 +41,8 @@ class AreaRepository
 		$area_data->is_new = '1';
 		$area_data->is_active = isset($request['is_active']) ? true : false;
 		$area_data->save();
+		$last_insert_id = $area_data->location_id;
 
-		$last_insert_id = $area_data->id;
         return $last_insert_id;
 
 	}
@@ -67,11 +67,12 @@ class AreaRepository
 		return $data_district;
 	}
 
-    public function updateDistrict($request)
+	public function updateDistrict($request)
 	{
 		$user_data = TblArea::where('location_id',$request['edit_id']) 
 						->update([
 							'name' => $request['name'],
+							'parent_id' => '2',
 							'is_new' => '1',
 							'is_active' => isset($request['is_active']) ? true :false,
 						]);
@@ -148,7 +149,6 @@ class AreaRepository
 		$area_data->is_new = '1';
 		$area_data->is_active = isset($request['is_active']) ? true : false;
 		$area_data->save();
-        // dd($area_data);
 
 		$last_insert_id = $area_data->location_id;
         return $last_insert_id;
@@ -261,7 +261,7 @@ class AreaRepository
 		$area_data->is_active = isset($request['is_active']) ? true : false;
 		$area_data->save();
 
-		$last_insert_id = $area_data->id;
+		$last_insert_id = $area_data->location_id;
         return $last_insert_id;
 
 	}
@@ -348,7 +348,6 @@ class AreaRepository
         }
     }
 
-   
 
 	public function register($request)
 	{
@@ -532,7 +531,7 @@ class AreaRepository
 			
 			->where('users.id', '=', base64_decode($reuest->edit_id))
 			->select(
-				'roles.id as role_id',
+				'roles.id o    le_id',
 				// 'users.u_uname',
 				'users.password',
 				'users.email',
@@ -805,22 +804,7 @@ class AreaRepository
 	}
 	
 	// public function checkEmailExists(Request $request) {
-    //     $userEmail = $request->input('email');
-      
-    //     $user = User::where('email', $userEmail)->first();
-      
-    //     if ($user) {
-    //       return response()->json([
-    //         'success' => false,
-    //         'message' => 'This Email already exists.',
-    //       ]);
-    //     } else {
-    //       return response()->json([
-    //         'success' => true,
-    //         'message' => 'This Email does not exist.',
-    //       ]);
-    //     }
-    // }
+    
 
     
 
@@ -834,5 +818,6 @@ class AreaRepository
 
 		return $permissions;
 	}
+
 
 }

@@ -39,7 +39,7 @@
 
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label for="name">First Name</label>&nbsp<span class="red-text">*</span>
+                                            <label for="name">District Name</label>&nbsp<span class="red-text">*</span>
                                             <input type="text" class="form-control" name="name" id="name"
                                                 placeholder="" value="{{ old('name') }}"
                                                 oninput="this.value = this.value.replace(/[^a-zA-Z\s.]/g, '').replace(/(\..*)\./g, '$1');">
@@ -66,7 +66,7 @@
                                             Save &amp; Submit
                                         </button>
                                         {{-- <button type="reset" class="btn btn-sm btn-danger">Cancel</button> --}}
-                                        <span><a href="{{ route('list-users') }}"
+                                        <span><a href="{{ route('list-district') }}"
                                                 class="btn btn-sm btn-primary ">Back</a></span>
                                     </div>
                                 </div>
@@ -82,231 +82,8 @@
                 document.getElementById("frm_register").submit();
             }
         </script>
-        <script>
-            function addvalidateMobileNumber(number) {
-                var mobileNumberPattern = /^\d*$/;
-                var validationMessage = document.getElementById("validation-message");
-
-                if (mobileNumberPattern.test(number)) {
-                    validationMessage.textContent = "";
-                } else {
-                    validationMessage.textContent = "Please enter only numbers.";
-                }
-            }
-        </script>
-        <script>
-            function addvalidatePincode(number) {
-                var pincodePattern = /^\d*$/;
-                var validationMessage = document.getElementById("validation-message-pincode");
-
-                if (pincodePattern.test(number)) {
-                    validationMessage.textContent = "";
-                } else {
-                    validationMessage.textContent = "Please enter only numbers.";
-                }
-            }
-        </script>
-
-
-   
-
-        <script>
-            $(document).ready(function() {
-
-                $('#district').change(function(e) {
-                    e.preventDefault();
-                    var districtId = $('#district').val();
-                    console.log(districtId);
-                    $('#taluka').html('<option value="">Select Taluka</option>');
-
-                    if (districtId !== '') {
-                        $.ajax({
-                            url: '{{ route('taluka') }}',
-                            type: 'GET',
-                            data: {
-                                districtId: districtId
-                            },
-                            // headers: {
-                            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            // },
-                            success: function(response) {
-                                // console.log(response);
-                                if (response.taluka.length > 0) {
-                                    $.each(response.taluka, function(index, taluka) {
-                                        $('#taluka').append('<option value="' + taluka
-                                            .location_id +
-                                            '">' + taluka.name + '</option>');
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
-
-        <script>
-            $(document).ready(function() {
-
-                $('#taluka').change(function(e) {
-                    e.preventDefault();
-                    var talukaId = $('#taluka').val();
-                    console.log(talukaId);
-                    $('#village').html('<option value="">Select Village</option>');
-
-                    if (talukaId !== '') {
-                        $.ajax({
-                            url: '{{ route('village') }}',
-                            type: 'GET',
-                            data: {
-                                talukaId: talukaId
-                            },
-                            // headers: {
-                            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            // },
-                            success: function(response) {
-                                // console.log(response);
-                                if (response.village.length > 0) {
-                                    $.each(response.village, function(index, village) {
-                                        $('#village').append('<option value="' + village
-                                            .location_id +
-                                            '">' + village.name + '</option>');
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
-        
-        <!-- <script>
-            $(document).ready(function() {
-
-                $('#state').change(function(e) {
-                    e.preventDefault();
-                    var stateId = $('#state').val();
-                    // console.log(stateId);
-                    $('#city').html('<option value="">Select City</option>');
-
-                    if (stateId !== '') {
-                        $.ajax({
-                            url: '{{ route('cities') }}',
-                            type: 'GET',
-                            data: {
-                                stateId: stateId
-                            },
-                            // headers: {
-                            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            // },
-                            success: function(response) {
-                                console.log(response);
-                                if (response.city.length > 0) {
-                                    $.each(response.city, function(index, city) {
-                                        $('#city').append('<option value="' + city
-                                            .location_id +
-                                            '">' + city.name + '</option>');
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-        </script> -->
-        <script>
-            function myFunction(role_id) {
-                // alert(role_id);
-                $("#data_for_role").empty();
-                $.ajax({
-                    url: "{{ route('list-role-wise-permission') }}",
-                    method: "POST",
-                    data: {
-                        "role_id": role_id
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        $("#data_for_role").empty();
-                        $("#data_for_role").append(data);
-                    },
-                    error: function(data) {}
-                });
-            }
-        </script>
-
-        <!--  -->
-
-        <script>
-            $(document).ready(function() {
-
-                $('#user_district').change(function(e) {
-                    e.preventDefault();
-                    var districtId = $('#user_district').val();
-                    console.log(districtId);
-                    $('#user_taluka').html('<option value="">Select Taluka</option>');
-
-                    if (districtId !== '') {
-                        $.ajax({
-                            url: '{{ route('taluka') }}',
-                            type: 'GET',
-                            data: {
-                                districtId: districtId
-                            },
-                            // headers: {
-                            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            // },
-                            success: function(response) {
-                                // console.log(response);
-                                if (response.taluka.length > 0) {
-                                    $.each(response.taluka, function(index, taluka) {
-                                        $('#user_taluka').append('<option value="' + taluka
-                                            .location_id +
-                                            '">' + taluka.name + '</option>');
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
-
-        <script>
-            $(document).ready(function() {
-
-                $('#user_taluka').change(function(e) {
-                    e.preventDefault();
-                    var talukaId = $('#user_taluka').val();
-                    console.log(talukaId);
-                    $('#user_village').html('<option value="">Select Village</option>');
-
-                    if (talukaId !== '') {
-                        $.ajax({
-                            url: '{{ route('village') }}',
-                            type: 'GET',
-                            data: {
-                                talukaId: talukaId
-                            },
-                            // headers: {
-                            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            // },
-                            success: function(response) {
-                                // console.log(response);
-                                if (response.village.length > 0) {
-                                    $.each(response.village, function(index, village) {
-                                        $('#user_village').append('<option value="' + village
-                                            .location_id +
-                                            '">' + village.name + '</option>');
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
+       
+    
 
 
         <!--  -->
@@ -328,153 +105,18 @@
                 $('input,textarea, select, #user_profile').on('input change',
                     checkFormValidity);
 
-                    $.validator.addMethod("number", function(value, element) {
-                    return this.optional(element) || /^[0-9]{10}$/.test(value);
-                }, "Please enter a valid 10-digit number.");
-
-                $.validator.addMethod("email", function(value, element) {
-                    // Regular expression for email validation
-                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    return this.optional(element) || emailRegex.test(value);
-                }, "Please enter a valid email address.");
-
-
-                $(document).ready(function() {
-            $.validator.addMethod("aadharValidation", function(value, element) {
-                console.log('ffffffffffffffffff',value);
-    // Regular expression pattern for Aadhaar number validation
-    var aadhaarPattern = /^\d{12}$/;
-
-    console.log(aadhaarPattern.test(value));
-    // Check if the input matches the pattern
-    if (!aadhaarPattern.test(value)) {
-        return false;
-    }
-    // Aadhaar checksum validation algorithm
-    var sum = 0;
-    for (var i = 0; i < 11; i++) {
-        sum += parseInt(value.charAt(i)) * (12 - i);
-    }
-    var remainder = sum % 11;
-    if (remainder != 0) {
-        return false;
-    }
-
-    // Aadhaar number is valid
-    return true;
-}, "Invalid Aadhaar number");
-            });
+       
 
                 // Initialize the form validation
                 $("#frm_register").validate({
                     rules: {
-                        email: {
-                            required: true,
-                            remote: {
-                            url: '{{ route('check-email-exists') }}',
-                            type: 'get',
-                            data: {
-                                email: function() {
-                                    return $('#email').val();
-                                }
-                            }
-                        },
-                            email:true,
-                        },
-                        role_id: {
+                        name: {
                             required: true,
                         },
-                        password: {
-                            required: true,
-                        },
-                        password_confirmation: {
-                            required: true,
-                        },
-                        f_name: {
-                            required: true,
-                        },
-                        m_name: {
-                            required: true,
-                        },
-                        l_name: {
-                            required: true,
-                        },
-                        number: {
-                            required: true,
-                            number:true,
-                        },
-                        aadhar_no: {
-                            required: true,
-                            pattern: /^\d{4}\s\d{4}\s\d{4}$/,
-                        },
-                        address: {
-                            required: true,
-                        },
-                        district: {
-                            required: true,
-                        },
-                        taluka: {
-                            required: true,
-                        },
-                        village: {
-                            required: true,
-                        },
-                        user_profile: {
-                            required: true,
-                        },
-                        pincode: {
-                            required: true,
-                        },
-
                     },
                     messages: {
-                        email: {
-                            required: "Please Enter the Eamil",
-                            remote: "This Email already exists.",
-                        },
-                        role_id: {
-                            required: "Please Select Role Name",
-                        },
-                        password: {
-                            required: "Please Enter the Password",
-                        },
-                        password_confirmation: {
-                            required: "Please Enter the Confirmation Password",
-                        },
-                        f_name: {
-                            required: "Please Enter the First Name",
-                        },
-                        m_name: {
-                            required: "Please Enter the Middle Name",
-                        },
-                        l_name: {
-                            required: "Please Enter the Last Name",
-                        },
-                        number: {
-                            required: "Please Enter the Number",
-                        },
-                        aadhar_no: {
-                            required: "Please Enter the Aadhar No",
-                          pattern: "Please enter a valid Aadhar number (e.g., 1234 5678 9101)", // Custom error message for Aadhar card number validation
-                        },
-                        address: {
-                            required: "Please Enter the Address",
-                        },
-                        district: {
-                            required: "Please Select District",
-                        },
-                        taluka: {
-                            required: "Please Select Taluka",
-                        },
-                        village: {
-                            required: "Please Select Village",
-                        },
-                        user_profile: {
-                            required: "Upload Media File",
-                            accept: "Only png, jpeg, and jpg image files are allowed.", // Update the error message for the accept rule
-                        },
-                        pincode: {
-                            required: "Please Enter the Pincode",
+                        name: {
+                            required: "Please Enter the District Name",
                         },
                     },
 

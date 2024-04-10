@@ -120,8 +120,6 @@ class RegisterRepository
         $ipAddress = getIPAddress($request);
 		$user_data = User::where('id',$request['edit_id']) 
 						->update([
-							// 'u_uname' => $request['u_uname'],
-							'role_id' => $request['role_id'],
 							'f_name' => $request['f_name'],
 							'm_name' => $request['m_name'],
 							'l_name' => $request['l_name'],
@@ -132,13 +130,9 @@ class RegisterRepository
 							'taluka' => $request['taluka'],
 							'village' => $request['village'],
 							'pincode' => $request['pincode'],
-							'user_type' => $request['user_type'],
-							'user_district' => $request['user_district'],
-							'user_taluka' => $request['user_taluka'],
-							'user_village' => $request['user_village'],
 							'is_active' => isset($request['is_active']) ? true :false,
 						]);
-		
+		// dd($user_data);
 		// $this->updateRolesPermissions($request, $request->edit_id);
 		return $request->edit_id;
 	}
@@ -312,22 +306,6 @@ class RegisterRepository
 						->toArray();
 						
 		$data_users['data_users'] = $data_users_data[0];
-		// $data_users['permissions_user'] = User::join('roles_permissions', function($join) {
-		// 					$join->on('users.id', '=', 'roles_permissions.user_id');
-		// 				})
-		// 				->join('permissions', function($join) {
-		// 					$join->on('roles_permissions.permission_id', '=', 'permissions.id');
-		// 				})
-		// 				->where('roles_permissions.user_id','=',$reuest->edit_id)
-		// 				->where('roles_permissions.is_active','=',true)
-		// 				// ->where('users.is_active','=',true)
-		// 				->select(
-		// 					'roles_permissions.per_add',
-		// 					'roles_permissions.per_update',
-		// 					'roles_permissions.per_delete',
-		// 					'permissions.id as permissions_id'
-		// 					)->get()
-		// 					->toArray();
 
 		return $data_users;
 	}

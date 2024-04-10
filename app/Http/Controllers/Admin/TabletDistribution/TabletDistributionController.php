@@ -49,6 +49,7 @@ class TabletDistributionController extends Controller {
 
 
             $data_gram_doc_details = $this->service->showTabletDistribution($request->show_id);
+            // dd($data_gram_doc_details);
             return view('admin.pages.TabletDistribution.show-tablet-distribution', compact('data_gram_doc_details'));
         } catch (\Exception $e) {
             return $e;
@@ -110,6 +111,17 @@ class TabletDistributionController extends Controller {
 
         $all_data = $this->service->getDistributerBenificiaryList($request);
         return view('admin.pages.TabletDistribution.list-distributer-benificary',compact('all_data','district_data'));
+    }
+
+    public function showDistributiorBenificiaryDetails(Request $request)
+    {
+        try {
+            $data_gram_doc_details = $this->service->showTabletDistribution($request->show_id);
+            $showid=$request->show_id;
+            return view('admin.pages.TabletDistribution.show-distributer-baneficiary-details', compact('data_gram_doc_details','showid'));
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
   

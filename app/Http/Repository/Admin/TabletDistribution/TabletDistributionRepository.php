@@ -50,14 +50,10 @@ class TabletDistributionRepository
 				'gram_sevak_tablet_distribution.longitude','gram_sevak_tablet_distribution.aadhar_image',
 				'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
 				'gram_sevak_tablet_distribution.photo_of_beneficiary',
+				'gram_sevak_tablet_distribution.photo_of_tablet_imei',
 				'gram_sevak_tablet_distribution.created_at')
 				->first();
-// dd($data_gram_doc);
 
-			
-					
-
-	
 			if ($data_gram_doc) {
 				return $data_gram_doc;
 			} else {
@@ -89,8 +85,10 @@ class TabletDistributionRepository
 				'gram_sevak_tablet_distribution.longitude','gram_sevak_tablet_distribution.aadhar_image',
 				'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
 				'gram_sevak_tablet_distribution.photo_of_beneficiary',
-				'gram_sevak_tablet_distribution.created_at')->get()
-			->toArray();
+				'gram_sevak_tablet_distribution.created_at')
+				->orderBy('gram_sevak_tablet_distribution.id', 'desc')
+				->get()
+				->toArray();
 
 			$data_all['count'] = count($data_all['beneficiary_data']);
 

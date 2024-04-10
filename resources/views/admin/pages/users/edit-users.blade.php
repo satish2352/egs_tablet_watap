@@ -33,45 +33,6 @@
                                         @endif
                                     </div>
                                 </div> 
-                                {{--  <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label for="u_uname">User Name</label>&nbsp<span class="red-text">*</span>
-                                            <input type="text" class="form-control" name="u_uname" id="u_uname"
-                                                placeholder="" value="{{ $user_data['data_users']['u_uname'] }}">
-                                            @if ($errors->has('u_uname'))
-                                                <span class="red-text"><?php echo $errors->first('u_uname', ':message'); ?></span>
-                                            @endif
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="u_password">Password</label>&nbsp<span class="red-text">*</span>
-                                        <input type="text" class="form-control" name="u_password" id="u_password"
-                                            placeholder="" value="{{decrypt($user_data['data_users']['u_password'])}}">
-                                        @if ($errors->has('u_password'))
-                                        <span
-                                            class="red-text"><?php echo $errors->first('u_password', ':message'); ?></span>
-                                        @endif
-                                    </div>
-                                </div> --}}
-
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label for="role_id">Role Type</label>&nbsp<span class="red-text">*</span>
-                                            <select class="form-control" id="role_id" name="role_id"
-                                                onchange="myFunction(this.value)">
-                                                <option>Select</option>
-                                                @foreach ($user_data['roles'] as $role)
-                                                    <option value="{{ $role['id'] }}"
-                                                        @if ($role['id'] == $user_data['data_users']['role_id']) <?php echo 'selected'; ?> @endif>
-                                                        {{ $role['role_name'] }}</option>
-                                                @endforeach
-                                            </select>
-                                            @if ($errors->has('role_id'))
-                                                <span class="red-text"><?php echo $errors->first('role_id', ':message'); ?></span>
-                                            @endif
-                                        </div>
-                                    </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
@@ -193,69 +154,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        
-                                    </div>    
-                                    <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #040479;padding: 2%;">
-                                        <h5 class="d-flex justify-content-center mb-4">User Working Details</h5>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="usertype_name">User Type</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_type" id="user_type">
-                                                        <option value="">Select User Type</option>
-                                                        @foreach ($dynamic_usertype as $usertype)
-                                                        <option value="{{ $usertype['id'] }}"
-                                                        @if ($usertype['id'] == $user_data['data_users']['user_type']) <?php echo 'selected'; ?> @endif>
-                                                        {{ $usertype['usertype_name'] }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('usertype_name'))
-                                                        <span class="red-text"><?php echo $errors->first('usertype_name', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="district">User District</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_district" id="user_district">
-                                                        <option value="">Select District</option>
-                                                        @foreach ($dynamic_district as $district)
-                                                        <option value="{{ $district['location_id'] }}"
-                                                        @if ($district['location_id'] == $user_data['data_users']['user_district']) <?php echo 'selected'; ?> @endif>
-                                                        {{ $district['name'] }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('district'))
-                                                        <span class="red-text"><?php echo $errors->first('district', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="user_taluka">User Taluka</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_taluka" id="user_taluka">
-                                                        <option value="">Select Taluka</option>
-                                                    </select>
-                                                    @if ($errors->has('taluka'))
-                                                        <span class="red-text"><?php echo $errors->first('taluka', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="user_village">User Village</label>&nbsp<span class="red-text">*</span>
-                                                    <select class="form-control" name="user_village" id="user_village">
-                                                        <option value="">Select Village</option>
-                                                    </select>
-                                                    @if ($errors->has('village'))
-                                                        <span class="red-text"><?php echo $errors->first('village', ':message'); ?></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>    
-
+                                    
                                     <br>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group form-check form-check-flat form-check-primary">
@@ -265,11 +164,6 @@
                                                     @if ($user_data['data_users']['is_active']) <?php echo 'checked'; ?> @endif>
                                                 Is Active
                                                 <i class="input-helper"></i><i class="input-helper"></i></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-md-12 col-sm-12 user_tbl">
-                                        <div id="data_for_role">
                                         </div>
                                     </div>
 
@@ -293,34 +187,7 @@
         </div>
 
         <script>
-            // function getStateCity(stateId, city_id) {
-
-            //     $('#city').html('<option value="">Select City</option>');
-            //     if (stateId !== '') {
-            //         $.ajax({
-            //             url: '{{ route('cities') }}',
-            //             type: 'GET',
-            //             data: {
-            //                 stateId: stateId
-            //             },
-
-            //             success: function(response) {
-            //                 if (response.city.length > 0) {
-            //                     $.each(response.city, function(index, city) {
-            //                         $('#city').append('<option value="' + city
-            //                             .location_id +
-            //                             '" selected>' + city.name + '</option>');
-            //                     });
-            //                     if (city_id != null) {
-            //                         $('#city').val(city_id);
-            //                     } else {
-            //                         $('#city').val("");
-            //                     }
-            //                 }
-            //             }
-            //         });
-            //     }
-            // }
+        
 
             function getState(stateId) {
                 $('#state').html('<option value="">Select State</option>');
@@ -653,9 +520,6 @@
                         // },
                             email:true,
                         },
-                        role_id: {
-                            required: true,
-                        },
                         password: {
                             required: true,
                         },
@@ -703,9 +567,6 @@
                         email: {
                             required: "Please Enter the Eamil",
                             // remote: "This Email already exists."
-                        },
-                        role_id: {
-                            required: "Please Select Role Name",
                         },
                         password: {
                             required: "Please Enter the Password",
