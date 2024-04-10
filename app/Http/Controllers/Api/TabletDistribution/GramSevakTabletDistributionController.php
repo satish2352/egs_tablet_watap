@@ -108,7 +108,8 @@ class GramSevakTabletDistributionController extends Controller
             $basic_query_object = GramSevakTabletDistribution::leftJoin('tbl_area as district_labour', 'gram_sevak_tablet_distribution.district_id', '=', 'district_labour.location_id')
                 ->leftJoin('tbl_area as taluka_labour', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_labour.location_id')
                 ->leftJoin('tbl_area as village_labour', 'gram_sevak_tablet_distribution.village_id', '=', 'village_labour.location_id')
-                ->where('gram_sevak_tablet_distribution.user_id', $user);
+                ->where('gram_sevak_tablet_distribution.user_id', $user)
+                ->where('gram_sevak_tablet_distribution.is_active', '1');
                 
 
             if ($request->has('district_id')) {
