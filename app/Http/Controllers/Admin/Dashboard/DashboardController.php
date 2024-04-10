@@ -15,7 +15,7 @@ use App\Models\ {
     Gallery,
     Video,
     Event,
-    // Project
+    GramSevakTabletDistribution
 };
 use Validator;
 
@@ -43,13 +43,13 @@ class DashboardController extends Controller {
                 array_push($return_data, $data_dashboard);
             }
 
-            // if($value['url'] == 'list-projects') {
-            //     $data_dashboard['url'] =  $value['url'];
-            //     $data_dashboard['permission_name'] =  $value['permission_name'];
-            //     $projects = Project::all();
-            //     $data_dashboard['count'] = $projects->count();
-            //     array_push($return_data, $data_dashboard);
-            // }
+            if($value['url'] == 'list-gramsevak-tablet-distribution') {
+                $data_dashboard['url'] =  $value['url'];
+                $data_dashboard['permission_name'] =  $value['permission_name'];
+                $beneficiary = GramSevakTabletDistribution::all();
+                $data_dashboard['count'] = $beneficiary->count();
+                array_push($return_data, $data_dashboard);
+            }
 
            
         }

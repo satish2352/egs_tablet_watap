@@ -133,7 +133,7 @@
                                         <div class="form-group">
                                             <label for="aadhar_no">Aadhar No.</label>&nbsp<span
                                                 class="red-text">*</span>
-                                            <input type="text" class="form-control" name="aadhar_no"
+                                            <input type="text" class="form-control" name="aadhar_no" onkeyup="formatAadharNumber(this)"
                                                 id="aadhar_no" placeholder="" value="{{ old('aadhar_no') }}">
                                             @if ($errors->has('number'))
                                                 <span class="red-text"><?php echo $errors->first('aadhar_no', ':message'); ?></span>
@@ -195,17 +195,6 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label for="user_profile">Profile Photo</label>&nbsp<span
-                                                class="red-text">*</span><br>
-                                            <input type="file" name="user_profile" id="user_profile" accept="image/*"
-                                                value="{{ old('user_profile') }}"><br>
-                                            @if ($errors->has('user_profile'))
-                                                <span class="red-text"><?php echo $errors->first('user_profile', ':message'); ?></span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="form-group">
                                             <label for="pincode">Pincode</label>&nbsp<span class="red-text">*</span>
                                             <input type="text" class="form-control" name="pincode" id="pincode"
                                                 placeholder="" value="{{ old('pincode') }}"
@@ -216,6 +205,18 @@
                                             @endif
                                         </div>
                                     </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="user_profile">Profile Photo</label>&nbsp<span
+                                                class="red-text">*</span><br>
+                                            <input type="file" name="user_profile" id="user_profile" accept="image/*"
+                                                value="{{ old('user_profile') }}"><br>
+                                            @if ($errors->has('user_profile'))
+                                                <span class="red-text"><?php echo $errors->first('user_profile', ':message'); ?></span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         
                                     </div>
@@ -452,13 +453,26 @@
 
 
         <!--  -->
+        <script>
+function formatAadharNumber(input) {
+    let value = input.value.replace(/\s/g, ''); // Remove existing spaces
+    value = value.replace(/\D/g, ''); // Remove non-numeric characters
+    let formattedInput = '';
+    for (let i = 0; i < value.length; i++) {
+        formattedInput += value[i];
+        if ((i + 1) % 4 === 0 && i !== value.length - 1) {
+            formattedInput += ' ';
+        }
+    }
+    input.value = formattedInput;
+}
+</script>
 
         <script>
             $(document).ready(function() {
                 // Function to check if all input fields are filled with valid data
                 function checkFormValidity() {
                     const email = $('#email').val();
-                    const role_id = $('#role_id').val();
                     const password = $('#password').val();
                     const password_confirmation = $('#password_confirmation').val();
                     const f_name = $('#f_name').val();
@@ -474,7 +488,8 @@
                     const pincode = $('#pincode').val();
 
                     // Enable the submit button if all fields are valid
-                    if (email) {
+                    if (email && password && password_confirmation && f_name && m_name && l_name && number && aadhar_no && address
+                        && district && taluka && village && user_profile && pincode) {
                         $('#submitButton').prop('disabled', false);
                     } else {
                         $('#submitButton').prop('disabled', true);
@@ -496,31 +511,12 @@
                 }, "Please enter a valid email address.");
 
 
-                $(document).ready(function() {
-            $.validator.addMethod("aadharValidation", function(value, element) {
-                console.log('ffffffffffffffffff',value);
-    // Regular expression pattern for Aadhaar number validation
-    var aadhaarPattern = /^\d{12}$/;
+                $.validator.addMethod("aadharNumber", function(value, element) {
+                var aadharPattern = /^\d{4}\s\d{4}\s\d{4}$/;
+                    return this.optional(element) || aadharPattern.test(value);
+                }, "Please enter a valid Aadhar number");  
 
-    console.log(aadhaarPattern.test(value));
-    // Check if the input matches the pattern
-    if (!aadhaarPattern.test(value)) {
-        return false;
-    }
-    // Aadhaar checksum validation algorithm
-    var sum = 0;
-    for (var i = 0; i < 11; i++) {
-        sum += parseInt(value.charAt(i)) * (12 - i);
-    }
-    var remainder = sum % 11;
-    if (remainder != 0) {
-        return false;
-    }
-
-    // Aadhaar number is valid
-    return true;
-}, "Invalid Aadhaar number");
-            });
+                
 
                 // Initialize the form validation
                 $("#frm_register").validate({
@@ -537,9 +533,6 @@
                             }
                         },
                             email:true,
-                        },
-                        role_id: {
-                            required: true,
                         },
                         password: {
                             required: true,
@@ -562,7 +555,7 @@
                         },
                         aadhar_no: {
                             required: true,
-                            pattern: /^\d{4}\s\d{4}\s\d{4}$/,
+                            aadharNumber: true
                         },
                         address: {
                             required: true,
@@ -589,9 +582,6 @@
                             required: "Please Enter the Eamil",
                             remote: "This Email already exists.",
                         },
-                        role_id: {
-                            required: "Please Select Role Name",
-                        },
                         password: {
                             required: "Please Enter the Password",
                         },
@@ -612,7 +602,8 @@
                         },
                         aadhar_no: {
                             required: "Please Enter the Aadhar No",
-                          pattern: "Please enter a valid Aadhar number (e.g., 1234 5678 9101)", // Custom error message for Aadhar card number validation
+                            pattern: "Please enter a valid Aadhar number (e.g., 1234 5678 9101)", // Custom error message for Aadhar card number validation
+
                         },
                         address: {
                             required: "Please Enter the Address",
