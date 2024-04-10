@@ -129,8 +129,7 @@
                                                 @foreach ($gramsevaks as $item)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $item->f_name }} {{ $item->m_name }} {{ $item->l_name }}
-                                                            ({{ $item->email }})
+                                                        <td>{{ $item->full_name }}
                                                         </td>
                                                         <td>{{ $item->district }}</td>
                                                         <td>{{ $item->taluka }}</td>
@@ -246,7 +245,7 @@
                     if (districtId !== '' || talukaId !== '' || villageId !== '' ||
                         ProjectId !== '' || (FromDate !== '' && ToDate !== '')) {
                         $.ajax({
-                            url: '{{ route('list-gramsevak-tablet-distribution') }}',
+                            url: '{{ route('filter-tablet-distribution') }}',
                             type: 'GET',
                             data: {
                                 districtId: districtId,
@@ -260,14 +259,29 @@
                             //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             // },
                             success: function(response) {
-                                if (response.labour_attendance_ajax_data.length > 0) {
-                                    $('#order-listing tbody').empty();
-                                    
-                                    $.each(response.labour_attendance_ajax_data, function(index, labour_attendance_data) {
-                                        console.log(labour_attendance_data.created_at);
-                                        var lid=index + parseInt(1);
-                                        $('#order-listing tbody').append('<tr><td>' + lid +'</td><td>' + labour_attendance_data.project_name + '</td><td>' + labour_attendance_data.full_name +'</td><td>' + labour_attendance_data.mobile_number + '</td><td>' + labour_attendance_data.mgnrega_card_id + '</td><td>' + labour_attendance_data.attendance_day+ '</td><td>' + labour_attendance_data.created_at + '</td></tr>');
+                                console.log(response);
+                                if (response.labour_ajax_data.length > '0') {
+
+                                    var table = $('#order-listing').DataTable();
+                                    table.clear().draw();
+
+                                    $.each(response.labour_ajax_data, function(index, labour_data) {
+                                        index++;
+                                        table.row.add([ index,
+                                            labour_data.full_name,
+                                            labour_data.district,
+                                            labour_data.taluka,
+                                            labour_data.village,
+                                            '<a onClick="getData(' + labour_data.id + ')" class="show-btn btn btn-sm btn-outline-primary m-1"><i class="fas fa-eye"></i></a>']).draw(false);
                                     });
+
+                                    // $('#order-listing tbody').empty();
+                                    
+                                    // $.each(response.labour_attendance_ajax_data, function(index, labour_attendance_data) {
+                                    //     console.log(labour_attendance_data.created_at);
+                                    //     var lid=index + parseInt(1);
+                                    //     $('#order-listing tbody').append('<tr><td>' + lid +'</td><td>' + labour_attendance_data.project_name + '</td><td>' + labour_attendance_data.full_name +'</td><td>' + labour_attendance_data.mobile_number + '</td><td>' + labour_attendance_data.mgnrega_card_id + '</td><td>' + labour_attendance_data.attendance_day+ '</td><td>' + labour_attendance_data.created_at + '</td></tr>');
+                                    // });
                                 }else{
                                     $('#order-listing tbody').empty();
                                     $('#order-listing tbody').append('<tr><td colspan="7" style="text-align:center;"><b>No Record Found</b></td></tr>');
@@ -281,6 +295,16 @@
                 });
             });
         </script>
+
+<script>
+
+// $(document).ready(() => {
+    function getData(data){
+    $("#show_id").val(data);
+    $("#showform").submit();
+}
+// });
+</script>
      
         <form method="POST" action="{{ url('/show-tablet-distribution') }}" id="showform">
             @csrf

@@ -165,6 +165,70 @@ class TabletDistributionController extends Controller {
         }
     }
 
+    public function getFilterTabletDistribution(Request $request)
+    {
+        // $sess_user_id=session()->get('user_id');
+		// $sess_user_type=session()->get('user_type');
+		// $sess_user_role=session()->get('role_id');
+		// $sess_user_working_dist=session()->get('working_dist');
+
+       $districtId = $request->input('districtId');
+        $talukaId = $request->input('talukaId');
+        $villageId = $request->input('villageId');
+
+        //     if($sess_user_role=='1')
+		// {
+            $query_user = User::where('users.role_id','3')
+                ->select('id');
+                if ($request->filled('districtId')) {
+                    $query_user->where('users.user_district', $districtId);
+                }
+                if ($request->filled('talukaId')) {
+                    $query_user->where('users.user_taluka', $talukaId);
+                }
+                if ($request->filled('villageId')) {
+                    $query_user->where('users.user_village', $villageId);
+                }
+
+               $data_user_output=$query_user->get();
+
+
+     	// Labour::leftJoin('tbl_area as district_labour', 'labour.district_id', '=', 'district_labour.location_id')
+		// ->leftJoin('tbl_area as taluka_labour', 'labour.taluka_id', '=', 'taluka_labour.location_id')
+		// ->leftJoin('tbl_area as village_labour', 'labour.village_id', '=', 'village_labour.location_id')
+		// ->leftJoin('gender as gender_labour', 'labour.gender_id', '=', 'gender_labour.id')
+		// ->leftJoin('users', 'labour.user_id', '=', 'users.id')
+
+        $query = GramSevakTabletDistribution::leftJoin('tbl_area as district_user', 'gram_sevak_tablet_distribution.district_id', '=', 'district_user.location_id')
+				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
+				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
+				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
+                ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
+				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
+                'gram_sevak_tablet_distribution.mobile_number');
+		// ->where('labour.is_approved', $RegistrationStatusId)
+        if ($request->filled('districtId')) {
+            $query->where('gram_sevak_tablet_distribution.district_id', $districtId);
+        }
+        if ($request->filled('talukaId')) {
+            $query->where('gram_sevak_tablet_distribution.taluka_id', $talukaId);
+        }
+        if ($request->filled('villageId')) {
+            $query->where('gram_sevak_tablet_distribution.village_id', $villageId);
+        }
+        
+          $data_output = $query->get();
+        // dd($data_output);
+		  
+          
+                return response()->json(['labour_ajax_data' => $data_output]);
+
+            // } catch (\Exception $e) {
+            //     return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            // }
+
+    }
+
 
   
    
