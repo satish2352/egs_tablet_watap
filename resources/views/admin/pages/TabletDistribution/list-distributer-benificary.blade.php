@@ -6,11 +6,14 @@
         <div class="content-wrapper mt-7">
             <div class="page-header">
                 <h3 class="page-title">
-                    Benificary List
+                    Beneficary List
                 </h3>
+                <span> Distributer Name : <b>{{ $all_data['distributer_data']['f_name'] }} {{ $all_data['distributer_data']['m_name'] }}
+                     {{ $all_data['distributer_data']['l_name'] }}</b></span>
+                     <span> Total Benificary : <b>{{ $all_data['count'] }}</b></span>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('list-users') }}">Master Management</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('list-users') }}">Distributer Management</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Benificary </li>
                     </ol>
                 </nav>
@@ -126,18 +129,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($gramsevaks as $item)
+                                                @foreach ($all_data['beneficiary_data'] as $item)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $item->full_name }}
+                                                        <td>{{ $item['full_name'] }}
                                                         </td>
-                                                        <td>{{ $item->district }}</td>
-                                                        <td>{{ $item->taluka }}</td>
-                                                        <td>{{ $item->village }}</td>
+                                                        <td>{{ $item['district'] }}</td>
+                                                        <td>{{ $item['taluka'] }}</td>
+                                                        <td>{{ $item['village'] }}</td>
 
                                                         <td class="d-flex">
                                                                  
-                                                            <a data-id="{{ $item->id }}"
+                                                            <a data-id="{{ $item['id'] }}"
                                                                 class="show-btn btn btn-sm btn-outline-primary m-1"><i
                                                                     class="fas fa-eye"></i></a>
                                                          

@@ -51,5 +51,10 @@ class TabletDistributionServices
         }
     }
 
+    public function getDistributerBenificiaryList($request) {
+        $all_data = $this->repo->getDistributerBenificiaryList($request);
+        return $all_data;
+    }
+
 
 }

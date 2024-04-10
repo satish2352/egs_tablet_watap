@@ -53,13 +53,6 @@
 
                                                         </td>
 
-
-                                                        {{-- <td>@if ($item->is_active)
-                                                        <button type="button" class="btn btn-success btn-sm">Active</button>
-                                                        @else 
-                                                        <button type="button" class="btn btn-danger btn-sm">In Active</button>
-                                                        
-                                                        @endif</td> --}}
                                                         <td class="d-flex">
                                                         @if (in_array('per_update', $data_permission))
                                                             <a href="{{ route('edit-users', base64_encode($item->id)) }}"
@@ -74,6 +67,9 @@
                                                                 class="delete-btn btn btn-sm btn-outline-danger m-1"
                                                                 title="Delete Tender"><i class="fas fa-archive"></i></a>
                                                         @endif    
+                                                        <a href="{{ route('list-distributer-baneficiary', base64_encode($item->id)) }}"
+                                                                class="edit-btn btn btn-sm btn-outline-primary m-1"><i
+                                                                    class="fas fa-list"></i></a>
 
                                                         </td>
                                                     </tr>

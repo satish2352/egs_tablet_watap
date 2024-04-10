@@ -33,51 +33,10 @@ class PermissionsSeeder extends Seeder
                 [
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
-                    'route_name' => 'Marital Status',
-                    'url' => 'list-maritalstatus',
-                    'permission_name' => 'Marital Status',
-                ]);
-                Permissions::create(
-                [
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                    'route_name' => 'Relations',
-                    'url' => 'list-relation',
-                    'permission_name' => 'Relations',
-                ]);
-                Permissions::create(
-                [
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                    'route_name' => 'List Skills',
-                    'url' => 'list-skills',
-                    'permission_name' => 'List Skills',
-                ]);
-
-            Permissions::create(
-                [
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
                     'route_name' => 'Role',
                     'url' => 'list-role',
                     'permission_name' => 'Role',
                 ]);
-            Permissions::create(
-                [
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                    'route_name' => 'Registarion Status',
-                    'url' => 'list-registrationstatus',
-                    'permission_name' => 'Registarion Status',
-                ]);
-                Permissions::create(
-                    [
-                        'created_at' => \Carbon\Carbon::now(),
-                        'updated_at' => \Carbon\Carbon::now(),
-                        'route_name' => 'User Type',
-                        'url' => 'list-usertype',
-                        'permission_name' => 'User Type',
-                    ]);
             Permissions::create(
                 [
                     'created_at' => \Carbon\Carbon::now(),
@@ -90,41 +49,17 @@ class PermissionsSeeder extends Seeder
                 [
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
-                    'route_name' => 'Users Managment',
+                    'route_name' => 'Distributer Managment',
                     'url' => 'list-users',
-                    'permission_name' => 'Users Managment',
+                    'permission_name' => 'Distributer Managment',
                 ]);
-                Permissions::create(
-                    [
-                        'created_at' => \Carbon\Carbon::now(),
-                        'updated_at' => \Carbon\Carbon::now(),
-                        'route_name' => 'Projects Managment',
-                        'url' => 'list-projects',
-                        'permission_name' => 'Projects Managment',
-                    ]);
-                Permissions::create(
-                    [
-                        'created_at' => \Carbon\Carbon::now(),
-                        'updated_at' => \Carbon\Carbon::now(),
-                        'route_name' => 'Labours Managment',
-                        'url' => 'list-labours',
-                        'permission_name' => 'Labours Managment',
-                    ]);
-                Permissions::create(
-                    [
-                        'created_at' => \Carbon\Carbon::now(),
-                        'updated_at' => \Carbon\Carbon::now(),
-                        'route_name' => 'Project Wise Users',
-                        'url' => 'list-project-wise-users',
-                        'permission_name' => 'Project Wise Users',
-                    ]);
-                Permissions::create(
-                    [
-                        'created_at' => \Carbon\Carbon::now(),
-                        'updated_at' => \Carbon\Carbon::now(),
-                        'route_name' => 'Gramsevak Listing',
-                        'url' => 'list-gramsevak',
-                        'permission_name' => 'Gramsevak Listing',
-                    ]);              
+            Permissions::create(
+                [
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'route_name' => 'Beneficiary',
+                    'url' => 'list-gramsevak-tablet-distribution',
+                    'permission_name' => 'Beneficiary',
+                ]);              
     }
 }

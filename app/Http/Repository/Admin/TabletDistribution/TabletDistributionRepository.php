@@ -71,93 +71,39 @@ class TabletDistributionRepository
 		}
 	}
 
-	public function updateGramDocumentStatus($request)
+
+	public function getDistributerBenificiaryList($reuest)
 	{
-		// dd($request);
-		if($request['is_approved']=='2')
-		{
-			$user_data = GramPanchayatDocuments::where('id',$request['edit_id']) 
-						->update([
-							'is_approved' => $request['is_approved'],
-							'is_resubmitted' => '0',
-						]);
-		}else if($request['is_approved']=='3' && $request['other_remark']!='')		
-		{
-			$user_data = GramPanchayatDocuments::where('id',$request['edit_id']) 
-						->update([
-							'is_approved' => $request['is_approved'],
-							'reason_doc_id' => $request['reason_doc_id'],
-							'other_remark' => $request['other_remark']
-						]);
-		}
-		else if($request['is_approved']=='3' && $request['other_remark']=='')		
-		{
-			$user_data = GramPanchayatDocuments::where('id',$request['edit_id']) 
-						->update([
-							'is_approved' => $request['is_approved'],
-							'reason_doc_id' => $request['reason_doc_id']
-						]);
-		}			
-		// dd($user_data);
-		// $this->updateRolesPermissions($request, $request->edit_id);
-		return $request->edit_id;
-	}
 
-	public function ListGrampanchayatDocuments()
-	{
-		$data_gram_doc=[];
-		$sess_user_id=session()->get('user_id');
-		$sess_user_type=session()->get('user_type');
-		$sess_user_role=session()->get('role_id');
-		try {
-			// $data_gram_doc['user_data'] = User::leftJoin('roles', 'roles.id', '=', 'users.role_id')
-			// 	->leftJoin('tbl_area as district_user', 'users.user_district', '=', 'district_user.location_id')
-			// 	->leftJoin('tbl_area as taluka_user', 'users.user_taluka', '=', 'taluka_user.location_id')
-			// 	->leftJoin('tbl_area as village_user', 'users.user_village', '=', 'village_user.location_id')
-			// 	->where('users.id', $id)
-			// 	->select('users.id','users.f_name','users.m_name','users.l_name','users.email','users.number','users.aadhar_no',
-			// 	'users.address','users.pincode','users.user_profile','roles.role_name',
-			// 	'district_user.name as district','taluka_user.name as taluka','village_user.name as village')
-			// 	->first();
+		$data_all = [];
 
-			$user_doc_data= GramPanchayatDocuments::leftJoin('documenttype', 'documenttype.id', '=', 'tbl_gram_panchayat_documents.document_type_id')
-				->leftJoin('registrationstatus', 'tbl_gram_panchayat_documents.is_approved', '=', 'registrationstatus.id')
-				->leftJoin('tbl_doc_reason', function($join) {
-					$join->on('tbl_gram_panchayat_documents.reason_doc_id', '=', 'tbl_doc_reason.id')
-						 ->where(function($query) {
-							 $query->where('tbl_gram_panchayat_documents.reason_doc_id', '>', 0)
-								   ->orWhereNull('tbl_gram_panchayat_documents.reason_doc_id');
-						 });
-						})		 
-				->where('tbl_gram_panchayat_documents.user_id', $sess_user_id)
-				->select('tbl_gram_panchayat_documents.id',
-				'tbl_gram_panchayat_documents.user_id',
-				'tbl_gram_panchayat_documents.document_type_id',
-				'tbl_gram_panchayat_documents.document_name',
-				'tbl_gram_panchayat_documents.document_pdf',
-				'tbl_gram_panchayat_documents.is_active',
-				'documenttype.document_type_name',
-				'tbl_gram_panchayat_documents.is_approved',
-				'tbl_gram_panchayat_documents.is_resubmitted',
-				'tbl_gram_panchayat_documents.reason_doc_id',
-				'tbl_gram_panchayat_documents.other_remark',
-				'registrationstatus.status_name',
-				'tbl_doc_reason.reason_name',
-				)
-				->get();
+		$data_all['beneficiary_data'] = GramSevakTabletDistribution::leftJoin('tbl_area as district_user', 'gram_sevak_tablet_distribution.district_id', '=', 'district_user.location_id')
+				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
+				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
+				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
+				->where('gram_sevak_tablet_distribution.user_id', '=', base64_decode($reuest->edit_id))
+				->select('gram_sevak_tablet_distribution.full_name','users.id','users.f_name','users.m_name','users.l_name',
+				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
+				'gram_sevak_tablet_distribution.adhar_card_number','gram_sevak_tablet_distribution.gram_panchayat_name',
+				'gram_sevak_tablet_distribution.mobile_number','gram_sevak_tablet_distribution.latitude',
+				'gram_sevak_tablet_distribution.longitude','gram_sevak_tablet_distribution.aadhar_image',
+				'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
+				'gram_sevak_tablet_distribution.photo_of_beneficiary',
+				'gram_sevak_tablet_distribution.created_at')->get()
+			->toArray();
 
-	
-			if ($user_doc_data) {
-				return $user_doc_data;
-			} else {
-				return null;
-			}
-		} catch (\Exception $e) {
-			return [
-				'msg' => $e->getMessage(),
-				'status' => 'error'
-			];
-		}
+			$data_all['count'] = count($data_all['beneficiary_data']);
+
+			$data_all['distributer_data'] = User::where('users.id', '=', base64_decode($reuest->edit_id))
+				->select(
+					'users.f_name',
+					'users.m_name',
+					'users.l_name'
+				)->first();
+		$all_data = $data_all;
+
+
+		return $all_data;
 	}
 
 }

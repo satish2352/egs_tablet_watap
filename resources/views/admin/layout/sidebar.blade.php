@@ -38,9 +38,8 @@
                   </a>
               </li>    
               @endif
-              @if (in_array('list-role', $data_for_url) || in_array('list-maritalstatus', $data_for_url) || in_array('list-relation', $data_for_url) ||
-                      in_array('list-gender', $data_for_url) || in_array('list-skills', $data_for_url) || in_array('list-registrationstatus', $data_for_url)
-                      || in_array('list-documenttype', $data_for_url))
+              @if (in_array('list-role', $data_for_url) || in_array('list-documenttype', $data_for_url) ||
+                      in_array('list-gender', $data_for_url))
                   <li class="{{request()->is('list-role*')
                     ? 'nav-item active' : 'nav-item' }}">
                       <a class="{{request()->is('list-role*')
@@ -62,35 +61,10 @@
                                     ? 'nav-link active' : 'nav-link' }}"
                                           href="{{ route('list-gender') }}">Gender</a></li>
                               @endif
-                              @if (in_array('list-maritalstatus', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-maritalstatus*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-maritalstatus') }}">Marital Status</a></li>
-                              @endif
-                              @if (in_array('list-relation', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-relation*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-relation') }}">Relation</a></li>
-                              @endif
-                              @if (in_array('list-skills', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-skills*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-skills') }}">Skills</a></li>
-                              @endif
-                              @if (in_array('list-registrationstatus', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-registrationstatus*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-registrationstatus') }}">Registration Status</a></li>
-                              @endif
                               @if (in_array('list-documenttype', $data_for_url))
                                   <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-documenttype*')
                                     ? 'nav-link active' : 'nav-link' }}"
                                           href="{{ route('list-documenttype') }}">Document Type</a></li>
-                              @endif
-                              @if (in_array('list-usertype', $data_for_url))
-                              <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-usertype*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-usertype') }}">User Type</a></li>
                               @endif
 
                           </ul>
