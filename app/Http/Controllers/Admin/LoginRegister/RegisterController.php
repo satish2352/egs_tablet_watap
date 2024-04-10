@@ -27,17 +27,10 @@ class RegisterController extends Controller {
 
     public function index()
     {
+
         $register_user = $this->service->index();
         return view('admin.pages.users.users-list',compact('register_user'));
     }
-
-    // public function getProf()
-    // {
-    //     $register_user = $this->service->index();
-    //     return view('admin.layout.master',compact('register_user'));
-    // }
-
-
 
     public function addUsers(){
         $roles = Roles::where('is_active', true)

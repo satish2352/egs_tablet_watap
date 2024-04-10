@@ -523,15 +523,6 @@ function formatAadharNumber(input) {
                     rules: {
                         email: {
                             required: true,
-                            remote: {
-                            url: '{{ route('check-email-exists') }}',
-                            type: 'get',
-                            data: {
-                                email: function() {
-                                    return $('#email').val();
-                                }
-                            }
-                        },
                             email:true,
                         },
                         password: {
@@ -580,7 +571,6 @@ function formatAadharNumber(input) {
                     messages: {
                         email: {
                             required: "Please Enter the Eamil",
-                            remote: "This Email already exists.",
                         },
                         password: {
                             required: "Please Enter the Password",
