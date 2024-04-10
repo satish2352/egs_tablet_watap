@@ -42,7 +42,7 @@ class TabletDistributionRepository
 				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
 				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
 				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
-				->where('gram_sevak_tablet_distribution.id', $id)
+				->where('gram_sevak_tablet_distribution.id',$id)
 				->select('gram_sevak_tablet_distribution.full_name','users.id','users.f_name','users.m_name','users.l_name',
 				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
 				'gram_sevak_tablet_distribution.adhar_card_number','gram_sevak_tablet_distribution.gram_panchayat_name',
@@ -82,7 +82,7 @@ class TabletDistributionRepository
 				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
 				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
 				->where('gram_sevak_tablet_distribution.user_id', '=', base64_decode($reuest->edit_id))
-				->select('gram_sevak_tablet_distribution.full_name','users.id','users.f_name','users.m_name','users.l_name',
+				->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id as ben_id','users.id','users.f_name','users.m_name','users.l_name',
 				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
 				'gram_sevak_tablet_distribution.adhar_card_number','gram_sevak_tablet_distribution.gram_panchayat_name',
 				'gram_sevak_tablet_distribution.mobile_number','gram_sevak_tablet_distribution.latitude',

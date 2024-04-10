@@ -140,7 +140,7 @@
 
                                                         <td class="d-flex">
                                                                  
-                                                            <a data-id="{{ $item['id'] }}"
+                                                            <a data-id="{{ $item['ben_id'] }}"
                                                                 class="show-btn btn btn-sm btn-outline-primary m-1"><i
                                                                     class="fas fa-eye"></i></a>
                                                          
