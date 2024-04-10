@@ -35,6 +35,7 @@ Route::group([
         Route::post('/add-tablet-info', [GramSevakTabletDistributionController::class, 'add']);
         Route::post('/list-tablet-distribution-info', [GramSevakTabletDistributionController::class, 'getAllTabletDistributionList']);
         Route::post('/get-tablet-distribution-perticular-info', [GramSevakTabletDistributionController::class, 'getAllTabletDistributionViewPerticular']);
+        Route::post('/get-tablet-distribution-perticular-delete', [GramSevakTabletDistributionController::class, 'getAllTabletDistributionDeletePerticular']);
      
         Route::post('/update-labour-first-form', [GramSevakTabletDistributionController::class, 'updateLabourFirstForm']);
         Route::post('/adhar-card-exist', [GramSevakTabletDistributionController::class, 'adharCardExist']);

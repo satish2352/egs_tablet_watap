@@ -166,7 +166,7 @@ class GramSevakTabletDistributionController extends Controller
 
                
           
-            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', "iTotalRecords" => $totalRecords, "totalPages"=>$totalPages, 'data' => $data_output], 200);
+            return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully', "iTotalRecords" => $totalRecords, "totalPages"=>$totalPages, 'page_no_to_hilight'=>$page,'data' => $data_output], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
         }
@@ -245,6 +245,34 @@ class GramSevakTabletDistributionController extends Controller
                 }
 
             return response()->json(['status' => 'true', 'message' => 'All data retrieved successfully',  'data' => $data_output], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
+        }
+
+    }
+   
+
+    
+    public function getAllTabletDistributionDeletePerticular(Request $request){
+    
+        try {
+
+            $all_data_validation = [
+                'id' => 'required',
+            ];
+          
+            $validator = Validator::make($request->all(), $all_data_validation);
+    
+            if ($validator->fails()) {
+                return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 200);
+            }
+
+            $user = Auth::user()->id;
+            
+            $basic_query_object = GramSevakTabletDistribution::where('id',$request->id)->update(['is_active' => '0']);
+                
+
+            return response()->json(['status' => 'true', 'message' => 'All data deleted successfully',  'data' => $basic_query_object], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
         }
