@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-end align-items-center">
                             <div>
-                                <a href="{{ route('list-gramsevak-tablet-distribution') }}" class="btn btn-sm btn-primary ml-3">Back</a>
+                                <a href="{{ route('list-distributer-baneficiary', ['edit_id' => $showid]) }}" class="btn btn-sm btn-primary ml-3">Back</a>
                             </div>
                         </div>
 
