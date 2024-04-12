@@ -62,9 +62,11 @@ class TabletDistributionController extends Controller {
 
     public function getFilterTabletDistribution(Request $request)
     {
+        dd($request);
        $districtId = $request->input('districtId');
         $talukaId = $request->input('talukaId');
         $villageId = $request->input('villageId');
+        $editId = $request->input('editId');
 
             $query_user = User::where('users.role_id','3')
                 ->select('id');
@@ -84,6 +86,7 @@ class TabletDistributionController extends Controller {
 				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
 				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
 				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
+				->where('gram_sevak_tablet_distribution.user_id', '=', $editId)
                 ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
 				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
                 'gram_sevak_tablet_distribution.mobile_number');
@@ -109,8 +112,10 @@ class TabletDistributionController extends Controller {
                     ->orderBy('name', 'asc')
                     ->get(['location_id', 'name']);
 
+        $edit_id=base64_decode($request->edit_id);            
+
         $all_data = $this->service->getDistributerBenificiaryList($request);
-        return view('admin.pages.TabletDistribution.list-distributer-benificary',compact('all_data','district_data'));
+        return view('admin.pages.TabletDistribution.list-distributer-benificary',compact('all_data','district_data','edit_id'));
     }
 
     public function showDistributiorBenificiaryDetails(Request $request)

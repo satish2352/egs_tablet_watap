@@ -31,6 +31,7 @@
                        
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="form-group">
+                                    <input type="hidden" class="form-control mb-2" name="edit_id" id="edit_id"value="{{ $edit_id }}">
                                     <select class="form-control" name="district_id" id="district_id">
                                         <option value="">Select District</option>
                                         @foreach ($district_data as $district_for_data)    
@@ -237,26 +238,17 @@
                     }
                     var talukaId = $('#taluka_id').val();
                     var villageId = $('#village_id').val();
-                    var FromDate = $('#from_date').val();
-                    var ToDate = $('#to_date').val();
-                    var ProjectId = $('#project_id').val();
+                    var editId = $('#edit_id').val();
+// alert(editId);
 
-                    // var IsApprovedId = $('#is_approved_val').val();
-                    // console.log(talukaId);
-                    // $('#village_id').html('<option value="">Select Village</option>');
-
-                    if (districtId !== '' || talukaId !== '' || villageId !== '' ||
-                        ProjectId !== '' || (FromDate !== '' && ToDate !== '')) {
+                    if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
                             url: '{{ route('filter-tablet-distribution') }}',
                             type: 'GET',
                             data: {
                                 districtId: districtId,
                                 talukaId: talukaId,
-                                villageId: villageId,
-                                FromDate: FromDate,
-                                ToDate: ToDate,
-                                ProjectId: ProjectId,
+                                editId: editId,
                             },
                             // headers: {
                             //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
