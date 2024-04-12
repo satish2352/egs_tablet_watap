@@ -88,7 +88,8 @@ class TabletDistributionController extends Controller {
 				->where('gram_sevak_tablet_distribution.user_id', '=', $editId)
                 ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
 				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
-                'gram_sevak_tablet_distribution.mobile_number');
+                'gram_sevak_tablet_distribution.mobile_number')
+				->orderBy('gram_sevak_tablet_distribution.id', 'desc');
         if ($request->filled('districtId')) {
             $query->where('gram_sevak_tablet_distribution.district_id', $districtId);
         }
