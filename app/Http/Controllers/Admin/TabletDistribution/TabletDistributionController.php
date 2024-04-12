@@ -153,6 +153,7 @@ class TabletDistributionController extends Controller {
 				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
 				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
 				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
+				->where('gram_sevak_tablet_distribution.is_active','1')
                 ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
 				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
                 'gram_sevak_tablet_distribution.mobile_number')
