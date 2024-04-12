@@ -234,32 +234,24 @@
                     }
                     var talukaId = $('#taluka_id').val();
                     var villageId = $('#village_id').val();
-                    var FromDate = $('#from_date').val();
-                    var ToDate = $('#to_date').val();
-                    var ProjectId = $('#project_id').val();
 
                     // var IsApprovedId = $('#is_approved_val').val();
                     // console.log(talukaId);
                     // $('#village_id').html('<option value="">Select Village</option>');
 
-                    if (districtId !== '' || talukaId !== '' || villageId !== '' ||
-                        ProjectId !== '' || (FromDate !== '' && ToDate !== '')) {
+                    if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
-                            url: '{{ route('filter-tablet-distribution') }}',
+                            url: '{{ route('filter-tablet-distribution-all') }}',
                             type: 'GET',
                             data: {
                                 districtId: districtId,
                                 talukaId: talukaId,
                                 villageId: villageId,
-                                FromDate: FromDate,
-                                ToDate: ToDate,
-                                ProjectId: ProjectId,
                             },
                             // headers: {
                             //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             // },
                             success: function(response) {
-                                console.log(response);
                                 if (response.labour_ajax_data.length > '0') {
 
                                     var table = $('#order-listing').DataTable();

@@ -129,5 +129,50 @@ class TabletDistributionController extends Controller {
         }
     }
 
+    public function getFilterTabletDistributionAll(Request $request)
+    {
+       $districtId = $request->input('districtId');
+        $talukaId = $request->input('talukaId');
+        $villageId = $request->input('villageId');
+
+            $query_user = User::where('users.role_id','3')
+                ->select('id');
+                if ($request->filled('districtId')) {
+                    $query_user->where('users.user_district', $districtId);
+                }
+                if ($request->filled('talukaId')) {
+                    $query_user->where('users.user_taluka', $talukaId);
+                }
+                if ($request->filled('villageId')) {
+                    $query_user->where('users.user_village', $villageId);
+                }
+
+               $data_user_output=$query_user->get();
+
+        $query = GramSevakTabletDistribution::leftJoin('tbl_area as district_user', 'gram_sevak_tablet_distribution.district_id', '=', 'district_user.location_id')
+				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
+				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
+				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
+                ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
+				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
+                'gram_sevak_tablet_distribution.mobile_number')
+				->orderBy('gram_sevak_tablet_distribution.id', 'desc');
+        if ($request->filled('districtId')) {
+            $query->where('gram_sevak_tablet_distribution.district_id', $districtId);
+        }
+        if ($request->filled('talukaId')) {
+            $query->where('gram_sevak_tablet_distribution.taluka_id', $talukaId);
+        }
+        if ($request->filled('villageId')) {
+            $query->where('gram_sevak_tablet_distribution.village_id', $villageId);
+        }
+        
+          $data_output = $query->get();
+		  
+          
+                return response()->json(['labour_ajax_data' => $data_output]);
+
+    }
+
   
 }
