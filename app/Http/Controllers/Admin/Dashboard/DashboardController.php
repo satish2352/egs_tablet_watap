@@ -46,7 +46,9 @@ class DashboardController extends Controller {
             if($value['url'] == 'list-gramsevak-tablet-distribution') {
                 $data_dashboard['url'] =  $value['url'];
                 $data_dashboard['permission_name'] =  $value['permission_name'];
-                $beneficiary = GramSevakTabletDistribution::all();
+                $beneficiary = GramSevakTabletDistribution::where('gram_sevak_tablet_distribution.is_active','1')
+                ->select('gram_sevak_tablet_distribution.id')
+				->get();
                 $data_dashboard['count'] = $beneficiary->count();
                 array_push($return_data, $data_dashboard);
             }
