@@ -62,7 +62,6 @@ class TabletDistributionController extends Controller {
 
     public function getFilterTabletDistribution(Request $request)
     {
-        dd($request);
        $districtId = $request->input('districtId');
         $talukaId = $request->input('talukaId');
         $villageId = $request->input('villageId');
