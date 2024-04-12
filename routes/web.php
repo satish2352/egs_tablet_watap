@@ -196,6 +196,7 @@ Route::post('/show-tablet-distribution', ['as' => 'show-tablet-distribution', 'u
 Route::get('/filter-tablet-distribution', ['as' => 'filter-tablet-distribution', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@getFilterTabletDistribution']);
 Route::get('/list-distributer-baneficiary/{edit_id}', ['as' => 'list-distributer-baneficiary', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@getDistributerBenificiaryList']);
 Route::post('/show-distributer-baneficiary-details', ['as' => 'show-distributer-baneficiary-details', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@showDistributiorBenificiaryDetails']);
+Route::get('/filter-tablet-distribution-all', ['as' => 'filter-tablet-distribution-all', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@getFilterTabletDistributionAll']);
 
 
 
