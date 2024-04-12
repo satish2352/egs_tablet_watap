@@ -30,9 +30,9 @@ class AuthController extends Controller
         $password = $request->input('password');
         $device_id = $request->input('device_id');
 
-        $user = User::where('email', $email)->first();
+        $user = User::where(['email'=> $email, 'is_active'=>1])->first();
         if (!$user) {
-            return response()->json(['status' => 'False','message' => 'User not found'], 200);
+            return response()->json(['status' => 'False','message' => 'User not found/ Not Approved User'], 200);
         }
 
         // Check if the provided password matches the user's password
