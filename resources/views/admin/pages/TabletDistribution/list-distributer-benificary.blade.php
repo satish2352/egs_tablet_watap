@@ -304,6 +304,7 @@
         <form method="POST" action="{{ url('/show-distributer-baneficiary-details') }}" id="showform">
             @csrf
             <input type="hidden" name="show_id" id="show_id" value="">
+            <input type="hidden" name="edit_id" id="edit_id"value="{{ $edit_id }}">
         </form>
         <!-- content-wrapper ends -->
     @endsection

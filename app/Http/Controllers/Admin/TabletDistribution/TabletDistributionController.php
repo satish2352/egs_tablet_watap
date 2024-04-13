@@ -123,7 +123,8 @@ class TabletDistributionController extends Controller {
         try {
             $data_gram_doc_details = $this->service->showTabletDistribution($request->show_id);
             $showid=base64_encode($request->show_id);
-            return view('admin.pages.TabletDistribution.show-distributer-baneficiary-details', compact('data_gram_doc_details','showid'));
+            $editId=base64_encode($request->edit_id);
+            return view('admin.pages.TabletDistribution.show-distributer-baneficiary-details', compact('data_gram_doc_details','showid','editId'));
         } catch (\Exception $e) {
             return $e;
         }
