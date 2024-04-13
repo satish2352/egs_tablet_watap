@@ -38,7 +38,9 @@ class DashboardController extends Controller {
             if($value['url'] == 'list-users') {
                 $data_dashboard['url'] =  $value['url'];
                 $data_dashboard['permission_name'] =  $value['permission_name'];
-                $users = User::all();
+                $users = User::where('id','<>',1)
+                ->select('id')
+				->get();
                 $data_dashboard['count'] = $users->count();
                 array_push($return_data, $data_dashboard);
             }

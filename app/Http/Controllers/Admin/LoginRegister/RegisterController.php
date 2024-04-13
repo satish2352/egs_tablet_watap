@@ -29,6 +29,7 @@ class RegisterController extends Controller {
     {
 
         $register_user = $this->service->index();
+        // dd($register_user);  
         return view('admin.pages.users.users-list',compact('register_user'));
     }
 

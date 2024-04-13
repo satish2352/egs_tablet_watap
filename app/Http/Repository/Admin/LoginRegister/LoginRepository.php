@@ -28,7 +28,8 @@ class LoginRepository
         $data['user_details'] = User::leftJoin('roles as user_roles', 'users.role_id', '=', 'user_roles.id')
                                         ->where( [
                                         'users.email' => $request['email'],
-                                        'users.is_active' =>true
+                                        'users.is_active' =>true,
+                                        'users.role_id' =>'1'
                                         ])
                                         ->select('users.*','user_roles.id as rid','user_roles.role_name')
                                         ->first();

@@ -9,7 +9,8 @@ use App\Models\{
 	User,
 	Permissions,
 	RolesPermissions,
-	Roles
+	Roles,
+	GramSevakTabletDistribution
 };
 use Illuminate\Support\Facades\Mail;
 
@@ -17,7 +18,9 @@ class RegisterRepository
 {
 
 	public function getUsersList() {
-        $data_users = User::select('users.email',
+        $data_users = User::where('users.role_id','<>','1')
+							->select('users.id',
+								'users.email',
 								'users.f_name',
 								'users.m_name',
 								'users.l_name',
@@ -29,11 +32,17 @@ class RegisterRepository
 								'users.village',
 								'users.pincode',
 								'users.id',
-								'users.is_active'
-							)
+								'users.is_active')
 							->orderBy('users.id', 'desc')
+							// ->groupBy('gram_sevak_tablet_distribution.user_id')
 							->get();
-							// ->toArray();
+							// dd($data_users);
+							foreach ($data_users as $key => $value) {
+								$value->count_added =GramSevakTabletDistribution::where(['user_id'=>$value->id,'is_active'=>'1'])
+								->count();
+								// ->get();
+							}
+
 
 		return $data_users;
 	}
@@ -80,7 +89,7 @@ class RegisterRepository
 		$user_data = new User();
 		$user_data->email = $request['email'];
 		$user_data->password = bcrypt($request['password']);
-		$user_data->role_id = '1';
+		$user_data->role_id = '2';
 		$user_data->f_name = $request['f_name'];
 		$user_data->m_name = $request['m_name'];
 		$user_data->l_name = $request['l_name'];

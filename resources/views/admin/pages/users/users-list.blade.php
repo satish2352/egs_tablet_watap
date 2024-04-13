@@ -28,6 +28,7 @@
                                                 <tr>
                                                     <th>Sr. No.</th>
                                                     <th>Name</th>
+                                                    <th>Count</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -39,6 +40,7 @@
                                                         <td>{{ $item->f_name }} {{ $item->m_name }} {{ $item->l_name }}
                                                             ({{ $item->email }})
                                                         </td>
+                                                        <td>{{ $item->count_added }} </td>
 
 
                                                         <td>
