@@ -84,21 +84,19 @@
                       </a>
                       <div class="collapse" id="master">
                           <ul class="nav flex-column sub-menu">
-                              <!-- @if (in_array('list-role', $data_for_url)) -->
+                              
                                   <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-district*')
                                     ? 'nav-link active' : 'nav-link' }}"
                                           href="{{ route('list-district') }}">District</a></li>
-                              <!-- @endif -->
-                              <!-- @if (in_array('list-gender', $data_for_url)) -->
+                              
                                   <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-taluka*')
                                     ? 'nav-link active' : 'nav-link' }}"
                                           href="{{ route('list-taluka') }}">Taluka</a></li>
-                              <!-- @endif -->
-                              <!-- @if (in_array('list-maritalstatus', $data_for_url)) -->
+                              
                                   <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-village*')
                                     ? 'nav-link active' : 'nav-link' }}"
                                           href="{{ route('list-village') }}">Village</a></li>
-                              <!-- @endif -->
+                              
                               
 
                           </ul>
