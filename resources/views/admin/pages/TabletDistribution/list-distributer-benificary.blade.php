@@ -8,13 +8,13 @@
                 <h3 class="page-title">
                     Beneficary List
                 </h3>
-                <span> Distributer Name : <b>{{ $all_data['distributer_data']['f_name'] }} {{ $all_data['distributer_data']['m_name'] }}
+                <span> Distributor Name : <b>{{ $all_data['distributer_data']['f_name'] }} {{ $all_data['distributer_data']['m_name'] }}
                      {{ $all_data['distributer_data']['l_name'] }}</b></span>
-                     <span> Total Benificary : <b>{{ $all_data['count'] }}</b></span>
+                     <span> Total Beneficiary : <b>{{ $all_data['count'] }}</b></span>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('list-users') }}">Distributer Management</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Benificary </li>
+                        <li class="breadcrumb-item"><a href="{{ route('list-users') }}">Distributor Management</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Beneficiary</li>
                     </ol>
                 </nav>
             </div>
