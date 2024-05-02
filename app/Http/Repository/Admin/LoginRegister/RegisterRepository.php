@@ -404,8 +404,10 @@ class RegisterRepository
 	{
 		$user_detail = User::where('is_active', true)
 			->where('id', session()->get('user_id'))
-			->select('id', 'f_name', 'm_name', 'l_name', 'email', 'password', 'number', 'designation','user_profile')
+			->select('id', 'f_name', 'm_name', 'l_name', 'email', 'password', 'number','user_profile')
 			->first();
+			$hashedPassword = bcrypt_decrypt($user_detail->password);
+			dd($hashedPassword);
 		return $user_detail;
 	}
 

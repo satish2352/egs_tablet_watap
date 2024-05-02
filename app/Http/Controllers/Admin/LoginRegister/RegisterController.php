@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\LoginRegister;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\LoginRegister\RegisterServices;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\ {
     Roles,
     Permissions,

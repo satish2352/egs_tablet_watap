@@ -199,6 +199,10 @@ Route::post('/show-distributer-baneficiary-details', ['as' => 'show-distributer-
 Route::get('/filter-tablet-distribution-all', ['as' => 'filter-tablet-distribution-all', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@getFilterTabletDistributionAll']);
 
 
+Route::post('/filter-tablet-distribution-all-export', ['as' => 'filter-tablet-distribution-all-export', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@getFilterTabletDistributionAllExport']);
+Route::post('/filter-tablet-distributer-baneficiary-export', ['as' => 'filter-tablet-distributer-baneficiary-export', 'uses' => 'App\Http\Controllers\Admin\TabletDistribution\TabletDistributionController@getFilterTabletDistributerBeneficiaryExport']);
+
+
 
 
 

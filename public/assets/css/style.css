@@ -29648,3 +29648,6 @@ table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td
 .show-btn {
   border-color: #04b76bcf !important;
 }
+div.dataTables_wrapper div.dataTables_length select {
+    width: 75px !important;
+    }

@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Exports;
+
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\Exportable;
+// use App\Models\User;
+use App\Models\ {
+    Roles,
+    Permissions,
+    TblArea,
+    User,
+    GramSevakTabletDistribution
+};
+
+class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
+// class UsersExportFilter implements FromCollection,ShouldAutoSize
+{
+    use Exportable;
+    protected $register_user;
+
+    protected $data_output;
+
+    public function __construct($request)
+    {
+        // dd($request);
+        $districtId = $request->input('dist_new_id');
+        $talukaId = $request->input('tal_new_id');
+        $villageId = $request->input('vil_new_id');
+
+            $query_user = User::where('users.role_id','3')
+                ->select('id');
+                if (!empty($districtId)) {
+                    $query_user->where('users.user_district', $districtId);
+                }
+                if (!empty($districtId)) {
+
+                    $query_user->where('users.user_taluka', $talukaId);
+                }
+                if (!empty($districtId)) {
+                    $query_user->where('users.user_village', $villageId);
+                }
+
+               $data_user_output=$query_user->get();
+
+        $query = GramSevakTabletDistribution::leftJoin('tbl_area as district_user', 'gram_sevak_tablet_distribution.district_id', '=', 'district_user.location_id')
+				->leftJoin('tbl_area as taluka_user', 'gram_sevak_tablet_distribution.taluka_id', '=', 'taluka_user.location_id')
+				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
+				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
+				->where('gram_sevak_tablet_distribution.is_active','1')
+                ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
+				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
+                'gram_sevak_tablet_distribution.mobile_number')
+				->orderBy('gram_sevak_tablet_distribution.id', 'desc');
+        if ($request->filled('dist_new_id')) {
+            // dd('dist');
+            $query->where('gram_sevak_tablet_distribution.district_id', $districtId);
+        }
+        if ($request->filled('tal_new_id')) {
+            // dd('tal');
+            $query->where('gram_sevak_tablet_distribution.taluka_id', $talukaId);
+        }
+        if ($request->filled('vil_new_id')) {
+            // dd('vil');
+            $query->where('gram_sevak_tablet_distribution.village_id', $villageId);
+        }
+        
+        //   $data_output = 
+        $this->data_output = $query->get();
+    }
+
+    public function collection()
+    {
+        // dd($this->data_output);
+
+
+        return $this->data_output;
+    }
+
+    public function headings(): array
+    {
+        return [
+            'Full Name',
+            'id',
+            'First Name',
+            'Middle Name',
+            'Last Name',
+            'Number',
+        ];
+    }
+}

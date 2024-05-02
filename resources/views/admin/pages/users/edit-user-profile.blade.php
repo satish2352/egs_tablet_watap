@@ -98,7 +98,7 @@
                                             <label for="password">Password</label>
                                             <input type="password" class="password form-control mb-2" name="password"
                                                 id="password" placeholder=""
-                                                value="@if (old('password')) {{ old('password') }} @endif">
+                                                value="@if (old('password')) {{ old('password') }}@else{{hashpw(password.encode('utf-8'), $user_data->password) }} @endif">
 
                                             @if ($errors->has('password'))
                                                 <span class="red-text"><?php echo $errors->first('password', ':message'); ?></span>
@@ -125,31 +125,6 @@
                                                 onclick="toggleConfirmPasswordVisibility()">
                                                 <i class="fa fa-eye-slash"></i>
                                             </span>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="password">Password</label>&nbsp<span class="red-text">*</span>
-                                            <input type="password" class="form-control" name="password" id="password"
-                                                placeholder=""
-                                                value="@if (old('password')) {{ old('password') }}@endif">
-                                            @if ($errors->has('password'))
-                                                <span class="red-text"><?php //echo $errors->first('password', ':message');
-                                                ?></span>
-                                            @endif
-                                        </div>
-                                    </div> --}}
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label for="designation">Designation</label>&nbsp<span
-                                                class="red-text">*</span>
-                                            <input type="text" class="form-control mb-2" name="designation"
-                                                id="designation" placeholder=""
-                                                value="@if (old('designation')) {{ old('designation') }}@else{{ $user_data->designation }} @endif"
-                                                oninput="this.value = this.value.replace(/[^a-zA-Z\s.]/g, '').replace(/(\..*)\./g, '$1');">
-                                            @if ($errors->has('designation'))
-                                                <span class="red-text"><?php echo $errors->first('designation', ':message'); ?></span>
-                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">

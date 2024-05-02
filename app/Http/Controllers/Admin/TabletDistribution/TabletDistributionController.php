@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin\TabletDistribution;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\TabletDistribution\TabletDistributionServices;
+use App\Exports\UsersExportFilter;
+use App\Exports\DistributerBenificiaryExport;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use App\Models\ {
     Roles,
     Permissions,
@@ -175,6 +180,27 @@ class TabletDistributionController extends Controller {
                 return response()->json(['labour_ajax_data' => $data_output]);
 
     }
+
+    public function getFilterTabletDistributionAllExport(Request $request)
+    {
+
+                $export = new UsersExportFilter($request);
+    // $filePath = 'exports/users.xlsx'; // Choose a path to store your exported file
+    // \Log::info($export);
+    // $export->store('public/' . $filePath);
+    // dd($export);
+        return Excel::download($export, 'users.xlsx');
+        // return response()->json(['file_url' => Storage::url($filePath)]);
+
+    }
+
+    public function getFilterTabletDistributerBeneficiaryExport(Request $request)
+	{
+// dd($reuest);
+        $export = new DistributerBenificiaryExport($request);
+        return Excel::download($export, 'distributerwise_beneficiary_list.xlsx');
+
+	}
 
   
 }

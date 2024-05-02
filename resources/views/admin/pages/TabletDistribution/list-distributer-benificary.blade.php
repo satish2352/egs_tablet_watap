@@ -1,6 +1,19 @@
 @extends('admin.layout.master')
+<!-- <link href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css"> -->
 
 @section('content')
+<!-- 
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script> -->
+
     <?php $data_permission = getPermissionForCRUDPresentOrNot('list-users', session('permissions')); ?>
     <div class="main-panel">
         <div class="content-wrapper mt-7">
@@ -68,10 +81,29 @@
 
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-success" id="submitButton">
-                                            Search
-                                        </button>
-                                        </div>
+                                    <button type="submit" class="btn btn-sm btn-success" id="submitButton">
+                                        Search
+                                    </button>
+
+                                    <form action="{{ route('filter-tablet-distributer-baneficiary-export') }}" method="POST" target="__blank">
+                    @csrf
+                    <div>
+                    <input type="hidden" name="dist_new_id" id="dist_new_id" value="">
+                    <input type="hidden" name="tal_new_id" id="tal_new_id"value="">
+                    <input type="hidden" name="vil_new_id" id="vil_new_id"value="">
+                    <input type="hidden" name="distributer_id" id="distributer_id"value="{{ $edit_id }}">
+
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <div class="flex justify-between">
+                            
+                            <div>
+                                Export Excel <!-- Adding text inside the button -->
+                            </div>
+                        </div>
+                    </button>
+                    </div>
+                </form>
+                                </div>
                             </div>
                         </div>
                           @elseif(session()->get('role_id')=='2')
@@ -107,7 +139,7 @@
                                     <button type="submit" class="btn btn-sm btn-success" id="submitButton">
                                             Search
                                         </button>
-                                        </div>
+                                </div>
                             </div>
                         </div>
                           @endif  
@@ -118,7 +150,8 @@
                                 <div class="col-12">
                                     @include('admin.layout.alert')
                                     <div class="table-responsive">
-                                        <table id="order-listing" class="table table-bordered">
+                                        <!-- <table id="table_data" class="table table-bordered"> -->
+                                        <table id="order-listing" class="table table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>Sr. No.</th>
@@ -169,6 +202,7 @@
                 $('#district_id').change(function(e) {
                     e.preventDefault();
                     var districtId = $('#district_id').val();
+                    $("#dist_new_id").val(districtId);
 
                     if (districtId !== '') {
                         $.ajax({
@@ -202,6 +236,7 @@
                 $('#taluka_id').change(function(e) {
                     e.preventDefault();
                     var talukaId = $('#taluka_id').val();
+                    $("#tal_new_id").val(talukaId);
 
                     if (talukaId !== '') {
                         $.ajax({
@@ -223,6 +258,17 @@
                             }
                         });
                     }
+                });
+            });
+        </script>
+
+<script>
+            $(document).ready(function() {
+
+                $('#village_id').change(function(e) {
+                    e.preventDefault();
+                    var villageId = $('#village_id').val();
+                    $("#vil_new_id").val(villageId);
                 });
             });
         </script>

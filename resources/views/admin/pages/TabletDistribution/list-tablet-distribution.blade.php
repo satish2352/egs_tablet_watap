@@ -1,6 +1,8 @@
 @extends('admin.layout.master')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
     <?php $data_permission = getPermissionForCRUDPresentOrNot('list-users', session('permissions')); ?>
     <div class="main-panel">
         <div class="content-wrapper mt-7">
@@ -18,7 +20,7 @@
             <div class="row">
                 <div class="col-12 grid-margin">
 
-                <div class="row">
+                    <div class="row">
                          
                             
 
@@ -64,10 +66,29 @@
 
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-success" id="submitButton">
+                                    <button type="submit" class="btn btn-sm btn-success" id="submitButton">
                                             Search
-                                        </button>
-                                        </div>
+                                    </button>
+
+                                    <!-- <div class="row"> -->
+                <form action="{{ route('filter-tablet-distribution-all-export') }}" method="POST" target="__blank">
+                    @csrf
+                    <div>
+                    <input type="hidden" name="dist_new_id" id="dist_new_id" value="">
+                    <input type="hidden" name="tal_new_id" id="tal_new_id"value="">
+                    <input type="hidden" name="vil_new_id" id="vil_new_id"value="">
+
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <div class="flex justify-between">
+                            
+                            <div>
+                                Export Excel <!-- Adding text inside the button -->
+                            </div>
+                        </div>
+                    </button>
+                    </div>
+                </form>
+                                <!-- </div> -->
                             </div>
                         </div>
                           @elseif(session()->get('role_id')=='2')
@@ -95,6 +116,7 @@
                                     @if ($errors->has('village_id'))
                                         <span class="red-text"><?php echo $errors->first('village_id', ':message'); ?></span>
                                     @endif
+                                  
                                 </div>
                             </div>
 
@@ -104,7 +126,12 @@
                                             Search
                                         </button>
                                         </div>
+
+                                        
                             </div>
+
+                             
+            
                         </div>
                           @endif  
 
@@ -165,7 +192,7 @@
                 $('#district_id').change(function(e) {
                     e.preventDefault();
                     var districtId = $('#district_id').val();
-
+                    $("#dist_new_id").val(districtId);
                     if (districtId !== '') {
                         $.ajax({
                             url: '{{ route('taluka') }}',
@@ -198,6 +225,7 @@
                 $('#taluka_id').change(function(e) {
                     e.preventDefault();
                     var talukaId = $('#taluka_id').val();
+                    $("#tal_new_id").val(talukaId);
 
                     if (talukaId !== '') {
                         $.ajax({
@@ -226,6 +254,17 @@
 <script>
             $(document).ready(function() {
 
+                $('#village_id').change(function(e) {
+                    e.preventDefault();
+                    var villageId = $('#village_id').val();
+                    $("#vil_new_id").val(villageId);
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+
                 $('#submitButton').click(function(e) {
                     e.preventDefault();
                     var districtId = $('#district_id').val()
@@ -234,10 +273,6 @@
                     }
                     var talukaId = $('#taluka_id').val();
                     var villageId = $('#village_id').val();
-
-                    // var IsApprovedId = $('#is_approved_val').val();
-                    // console.log(talukaId);
-                    // $('#village_id').html('<option value="">Select Village</option>');
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
@@ -266,20 +301,44 @@
                                             labour_data.village,
                                             '<a onClick="getData(' + labour_data.id + ')" class="show-btn btn btn-sm btn-outline-primary m-1"><i class="fas fa-eye"></i></a>']).draw(false);
                                     });
-
-                                    // $('#order-listing tbody').empty();
-                                    
-                                    // $.each(response.labour_attendance_ajax_data, function(index, labour_attendance_data) {
-                                    //     console.log(labour_attendance_data.created_at);
-                                    //     var lid=index + parseInt(1);
-                                    //     $('#order-listing tbody').append('<tr><td>' + lid +'</td><td>' + labour_attendance_data.project_name + '</td><td>' + labour_attendance_data.full_name +'</td><td>' + labour_attendance_data.mobile_number + '</td><td>' + labour_attendance_data.mgnrega_card_id + '</td><td>' + labour_attendance_data.attendance_day+ '</td><td>' + labour_attendance_data.created_at + '</td></tr>');
-                                    // });
                                 }else{
                                     $('#order-listing tbody').empty();
                                     $('#order-listing tbody').append('<tr><td colspan="7" style="text-align:center;"><b>No Record Found</b></td></tr>');
 
-                                    // alert("No Record Found");
                                 }
+
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#submitExportButton').click(function(e) {
+                    e.preventDefault();
+                    var districtId = $('#district_id').val()
+                    if(districtId==undefined){
+                        districtId="";
+                    }
+                    var talukaId = $('#taluka_id').val();
+                    var villageId = $('#village_id').val();
+
+                    if (districtId !== '' || talukaId !== '' || villageId !== '') {
+                        $.ajax({
+                            url: '{{ route('filter-tablet-distribution-all-export') }}',
+                            type: 'POST',
+                            data: {
+                                districtId: districtId,
+                                talukaId: talukaId,
+                                villageId: villageId,
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                               alert('done');
 
                             }
                         });
