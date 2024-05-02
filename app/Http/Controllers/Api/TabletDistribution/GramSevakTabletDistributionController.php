@@ -22,21 +22,71 @@ class GramSevakTabletDistributionController extends Controller
             'taluka_id' => 'required',
             'village_id' => 'required',
             'gram_panchayat_name' => 'required', 
-            'mobile_number' => ['required', 'digits:10'], 
-            'adhar_card_number' => ['required', 'digits:12'], 
+            'mobile_number' => ['required', 'digits:10', 'regex:/^[6789]\d{9}$/'],
+            'adhar_card_number' => ['required', 'digits:12', 'unique:gram_sevak_tablet_distribution'], 
             'latitude' => ['required', 'between:-90,90'], // Latitude range
             'longitude' => ['required', 'between:-180,180'], // Longitude range
-            'aadhar_image' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',  
-            'gram_sevak_id_card_photo' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048', 
-            'photo_of_beneficiary' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',
-            'photo_of_tablet_imei' => 'required|image|mimes:jpeg,png,jpg,gif|min:10|max:2048',
+            'aadhar_image' => 'required|image|mimes:jpeg,png,jpg|min:10|max:3072',  
+            'gram_sevak_id_card_photo' => 'required|image|mimes:jpeg,png,jpg|min:10|max:3072', 
+            'photo_of_beneficiary' => 'required|image|mimes:jpeg,png,jpg|min:10|max:3072',
+            'photo_of_tablet_imei' => 'required|image|mimes:jpeg,png,jpg|min:10|max:3072',
         ];
       
-        $validator = Validator::make($request->all(), $all_data_validation);
+        $customMessages = [
+            'full_name.required'=>'full name is required',
+            'district_id.required'=>'Please select a district.',
+            'taluka_id.required'=>'Please select a taluka.',
+            'village_id.required'=>'Please select a village.',
+            'gram_panchayat_name.required'=>'gram panchayat name is required.',
+            'mobile_number.required'=>'Mobile number is required.',
+            'mobile_number.digits'=>'Mobile number must be 10 digits.',
+            'mobile_number.regex' => 'Mobile number must start with 9, 8, 7 or 6.',
+            'adhar_card_number.required'=>'adhar card number is required.',
+            'adhar_card_number.digits'=>'adhar card number must be 12 digits.',
+            'adhar_card_number.unique' => 'adhar card number already exist.',
+            'latitude.required'=>'latitude is required.',
+            'latitude.between'=>'latitude must be between -90 and 90',
+            'longitude.required'=>'longitude is required.',
+            'longitude.between'=>'longitude must be between -180 and 180',
+
+            'aadhar_image.required' => 'Aadhar Image is required',
+            'aadhar_image.image' => 'Aadhar Image must be an image file',
+            'aadhar_image.mimes' => 'Aadhar Image must be a jpeg, png, or jpg file',
+            'aadhar_image.min' => 'Aadhar Image must be at least 10 KB in size',
+            'aadhar_image.max' => 'Aadhar Image must not exceed 3072 KB in size',
+            
+            'gram_sevak_id_card_photo.required' => 'Gram Sevak Id Card Photo is required',
+            'gram_sevak_id_card_photo.image' => 'Gram Sevak Id Card Photo must be an image file',
+            'gram_sevak_id_card_photo.mimes' => 'Gram Sevak Id Card Photo must be a jpeg, png, or jpg file',
+            'gram_sevak_id_card_photo.min' => 'Gram Sevak Id Card Photo must be at least 10 KB in size',
+            'gram_sevak_id_card_photo.max' => 'Gram Sevak Id Card Photo must not exceed 3072 KB in size',
+            
+            'photo_of_beneficiary.required' => 'Photo of Deneficiary is required',
+            'photo_of_beneficiary.image' => 'Photo of Deneficiary must be an image file',
+            'photo_of_beneficiary.mimes' => 'Photo of Deneficiary must be a jpeg, png, or jpg file',
+            'photo_of_beneficiary.min' => 'Photo of Deneficiary must be at least 10 KB in size',
+            'photo_of_beneficiary.max' => 'Photo of Deneficiary must not exceed 3072 KB in size',
+            
+            'photo_of_tablet_imei.required' => 'Photo of Tablet IMEI is required',
+            'photo_of_tablet_imei.image' => 'Photo of Tablet IMEI must be an image file',
+            'photo_of_tablet_imei.mimes' => 'Photo of Tablet IMEI must be a jpeg, png, or jpg file',
+            'photo_of_tablet_imei.min' => 'Photo of Tablet IMEI must be at least 10 KB in size',
+            'photo_of_tablet_imei.max' => 'Photo of Tablet IMEI must not exceed 3072 KB in size',
+          
+       ];
+     
+        $validator = Validator::make($request->all(), $all_data_validation, $customMessages);
 
         if ($validator->fails()) {
-            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 200);
+            $errors = $validator->errors()->all();
+            $errorMessage = '';
+            $errorMessage = implode(" \n", $validator->errors()->all());
+            return response()->json([
+                'status' => 'false',
+                'message' => 'Validation Fail: ' . $errorMessage,
+            ], 200);
         }
+
 
         try {
             // Check if the user exists
@@ -77,11 +127,6 @@ class GramSevakTabletDistributionController extends Controller
             $labour_data->photo_of_beneficiary =  $photo_of_beneficiary;
             $labour_data->photo_of_tablet_imei =  $photo_of_tablet_imei;
             $labour_data->save();
-
-            // Include image paths in the response
-            $labour_data->aadhar_image = $labour_data->aadhar_image;
-            $labour_data->gram_sevak_id_card_photo = $labour_data->gram_sevak_id_card_photo;
-            $labour_data->photo_of_tablet_imei = $labour_data->photo_of_tablet_imei;
 
             return response()->json([
                 'status' => 'True',
@@ -283,20 +328,90 @@ class GramSevakTabletDistributionController extends Controller
     public function updateLabourFirstForm(Request $request){
     try {
         $user = Auth::user();
-        // $labour_id = $request->input('id');
-        $validator = Validator::make($request->all(), [
+        // $validator = Validator::make($request->all(), [
+            $validatorRules = [
             'full_name' => 'required',
-            'gender_id' => 'required',
-            'district_id' => 'required',
+            'district_id' => 'required', 
             'taluka_id' => 'required',
             'village_id' => 'required',
-            'mobile_number' => ['required', 'digits:10'],
-        ]);
+            'gram_panchayat_name' => 'required', 
+            'mobile_number' => ['required', 'digits:10', 'regex:/^[6789]\d{9}$/'],
+            'adhar_card_number' => ['required', 'digits:12', 'unique:gram_sevak_tablet_distribution'], 
+            'latitude' => ['required', 'between:-90,90'], // Latitude range
+            'longitude' => ['required', 'between:-180,180'], // Longitude range
+            
+        ];
 
-        if ($validator->fails()) {
-            return response()->json(['status' => 'error', 'message' => $validator->errors()], 200);
+        if ($request->hasFile('aadhar_image')) {
+            $validatorRules['aadhar_image'] = 'required|image|mimes:jpeg,png,jpg|min:10|max:3072';
         }
 
+        if ($request->hasFile('gram_sevak_id_card_photo')) {
+            $validatorRules['gram_sevak_id_card_photo'] = 'required|image|mimes:jpeg,png,jpg|min:10|max:3072';
+        }
+
+        if ($request->hasFile('photo_of_beneficiary')) {
+            $validatorRules['photo_of_beneficiary'] = 'required|image|mimes:jpeg,png,jpg|min:10|max:3072';
+        }
+
+        if ($request->hasFile('photo_of_tablet_imei')) {
+            $validatorRules['photo_of_tablet_imei'] = 'required|image|mimes:jpeg,png,jpg|min:10|max:3072';
+        }
+
+        $customMessages = [
+            'full_name.required'=>'full name is required',
+            'district_id.required'=>'Please select a district.',
+            'taluka_id.required'=>'Please select a taluka.',
+            'village_id.required'=>'Please select a village.',
+            'gram_panchayat_name.required'=>'gram panchayat name is required.',
+            'mobile_number.required'=>'Mobile number is required.',
+            'mobile_number.digits'=>'Mobile number must be 10 digits.',
+            'mobile_number.regex' => 'Mobile number must start with 9, 8, 7 or 6.',
+            'adhar_card_number.required'=>'adhar card number is required.',
+            'adhar_card_number.digits'=>'adhar card number must be 12 digits.',
+            'adhar_card_number.unique' => 'adhar card number already exist.',
+            'latitude.required'=>'latitude is required.',
+            'latitude.between'=>'latitude must be between -90 and 90',
+            'longitude.required'=>'longitude is required.',
+            'longitude.between'=>'longitude must be between -180 and 180',
+
+            'aadhar_image.required' => 'Aadhar Image is required',
+            'aadhar_image.image' => 'Aadhar Image must be an image file',
+            'aadhar_image.mimes' => 'Aadhar Image must be a jpeg, png, or jpg file',
+            'aadhar_image.min' => 'Aadhar Image must be at least 10 KB in size',
+            'aadhar_image.max' => 'Aadhar Image must not exceed 3072 KB in size',
+            
+            'gram_sevak_id_card_photo.required' => 'Gram Sevak Id Card Photo is required',
+            'gram_sevak_id_card_photo.image' => 'Gram Sevak Id Card Photo must be an image file',
+            'gram_sevak_id_card_photo.mimes' => 'Gram Sevak Id Card Photo must be a jpeg, png, or jpg file',
+            'gram_sevak_id_card_photo.min' => 'Gram Sevak Id Card Photo must be at least 10 KB in size',
+            'gram_sevak_id_card_photo.max' => 'Gram Sevak Id Card Photo must not exceed 3072 KB in size',
+            
+            'photo_of_beneficiary.required' => 'Photo of Deneficiary is required',
+            'photo_of_beneficiary.image' => 'Photo of Deneficiary must be an image file',
+            'photo_of_beneficiary.mimes' => 'Photo of Deneficiary must be a jpeg, png, or jpg file',
+            'photo_of_beneficiary.min' => 'Photo of Deneficiary must be at least 10 KB in size',
+            'photo_of_beneficiary.max' => 'Photo of Deneficiary must not exceed 3072 KB in size',
+            
+            'photo_of_tablet_imei.required' => 'Photo of Tablet IMEI is required',
+            'photo_of_tablet_imei.image' => 'Photo of Tablet IMEI must be an image file',
+            'photo_of_tablet_imei.mimes' => 'Photo of Tablet IMEI must be a jpeg, png, or jpg file',
+            'photo_of_tablet_imei.min' => 'Photo of Tablet IMEI must be at least 10 KB in size',
+            'photo_of_tablet_imei.max' => 'Photo of Tablet IMEI must not exceed 3072 KB in size',
+          
+       ];
+
+        $validator = Validator::make($request->all(), $validatorRules, $customMessages);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $errorMessage = '';
+            $errorMessage = implode(" \n", $validator->errors()->all());
+            return response()->json([
+                'status' => 'false',
+                'message' => 'Validation Fail: ' . $errorMessage,
+            ], 200);
+        }
         // Find the labour data to update
         $labour_data = GramSevakTabletDistribution::where('id', $request->id)->first();
 
