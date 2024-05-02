@@ -87,8 +87,8 @@ class DistributerBenificiaryExport implements FromCollection, WithHeadings,Shoul
             unset($item->m_name);
             unset($item->l_name);
             return [
-                'Distributer Name' => $item->full_name,
-                'Gramsevak Name' => $fullName,
+                'Distributer Name' => $fullName,
+                'Gramsevak Name' => $item->full_name,
                 'District' => $item->district,
                 'Taluka' => $item->taluka,
                 'Village' => $item->village,

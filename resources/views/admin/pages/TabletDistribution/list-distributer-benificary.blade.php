@@ -81,30 +81,30 @@
 
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-sm btn-success" id="submitButton">
-                                        Search
-                                    </button>
-
-                                    <form action="{{ route('filter-tablet-distributer-baneficiary-export') }}" method="POST" target="__blank">
-                    @csrf
-                    <div>
-                    <input type="hidden" name="dist_new_id" id="dist_new_id" value="">
-                    <input type="hidden" name="tal_new_id" id="tal_new_id"value="">
-                    <input type="hidden" name="vil_new_id" id="vil_new_id"value="">
-                    <input type="hidden" name="distributer_id" id="distributer_id"value="{{ $edit_id }}">
-
-                    <button type="submit" class="btn btn-sm btn-success">
-                        <div class="flex justify-between">
-                            
-                            <div>
-                                Export Excel <!-- Adding text inside the button -->
-                            </div>
-                        </div>
-                    </button>
-                    </div>
-                </form>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <button type="submit" class="btn btn-sm btn-success" id="submitButton">Search</button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <form action="{{ route('filter-tablet-distributer-baneficiary-export') }}" method="POST" target="__blank">
+                                                @csrf
+                                                <input type="hidden" name="dist_new_id" id="dist_new_id" value="">
+                                                <input type="hidden" name="tal_new_id" id="tal_new_id" value="">
+                                                <input type="hidden" name="vil_new_id" id="vil_new_id" value="">
+                                                <input type="hidden" name="distributer_id" id="distributer_id" value="{{ $edit_id }}">
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <div class="flex justify-between">
+                                                        <div>
+                                                            Export Excel <!-- Adding text inside the button -->
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                           @elseif(session()->get('role_id')=='2')
                         <div class="row">
