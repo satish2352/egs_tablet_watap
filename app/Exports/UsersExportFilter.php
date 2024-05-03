@@ -50,9 +50,12 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
 				->leftJoin('tbl_area as village_user', 'gram_sevak_tablet_distribution.village_id', '=', 'village_user.location_id')
 				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
 				->where('gram_sevak_tablet_distribution.is_active','1')
-                ->select('gram_sevak_tablet_distribution.full_name','gram_sevak_tablet_distribution.id',
-				'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
-                'gram_sevak_tablet_distribution.mobile_number')
+                ->select('gram_sevak_tablet_distribution.full_name','users.f_name','users.m_name','users.l_name',
+                'district_user.name as district','taluka_user.name as taluka','village_user.name as village',
+                'gram_sevak_tablet_distribution.adhar_card_number','gram_sevak_tablet_distribution.gram_panchayat_name',
+                'gram_sevak_tablet_distribution.mobile_number','gram_sevak_tablet_distribution.latitude',
+                'gram_sevak_tablet_distribution.longitude',
+                'gram_sevak_tablet_distribution.created_at')
 				->orderBy('gram_sevak_tablet_distribution.id', 'desc');
         if ($request->filled('dist_new_id')) {
             // dd('dist');
@@ -73,21 +76,45 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
 
     public function collection()
     {
-        // dd($this->data_output);
 
-
+        $data = $this->data_output->map(function ($item) {
+            $fullName = $item->f_name . ' ' . $item->m_name . ' ' . $item->l_name;
+            $item->fullName = $fullName;
+            unset($item->f_name);
+            unset($item->m_name);
+            unset($item->l_name);
+            return [
+                'Distributer Name' => $fullName,
+                'Gramsevak Name' => $item->full_name,
+                'District' => $item->district,
+                'Taluka' => $item->taluka,
+                'Village' => $item->village,
+                'Aadhar Number' => $item->adhar_card_number,
+                'Grampanchayat Name' => $item->gram_panchayat_name,
+                'Mobile Number' => $item->mobile_number,
+                'Latitude' => $item->latitude,
+                'Longitude' => $item->longitude,
+                'Created Date' => $item->created_at,
+            ];
+        });
+        
         return $this->data_output;
     }
 
     public function headings(): array
     {
         return [
-            'Full Name',
-            'id',
-            'First Name',
-            'Middle Name',
-            'Last Name',
-            'Number',
+            'Distributer Name',
+            'Gramsevak Name',
+            'District',
+            'Taluka',
+            'Village',
+            'Aadhar',
+            'Grampanchayat Name',
+            'Mobile Number',
+            'Latitude',
+            'Longitude',
+            'Created Date',
         ];
     }
 }
