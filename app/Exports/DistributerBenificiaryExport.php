@@ -99,7 +99,6 @@ class DistributerBenificiaryExport implements FromCollection, WithHeadings,Shoul
                 'Longitude' => $item->longitude,
                 'Created Date' => $item->created_at,
             ];
-            // return $item;
         });
     
         return $data;
