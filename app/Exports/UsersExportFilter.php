@@ -109,7 +109,7 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
             'District',
             'Taluka',
             'Village',
-            'Aadhar',
+            'Aadhar Number',
             'Grampanchayat Name',
             'Mobile Number',
             'Latitude',
