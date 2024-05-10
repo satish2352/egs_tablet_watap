@@ -77,10 +77,16 @@
                                     </div>
                                     <div class="row ">
                                         <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <label>Village :</label>
+                                            <label>Grampanchayat Name :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ strip_tags($data_gram_doc_details['user_data']['village']) }}</label>
+                                            <label>
+                                                @if($data_gram_doc_details['user_data']['village']=='999999')
+                                                    {{ strip_tags($data_gram_doc_details['user_data']['gram_panchayat_name']) }}
+                                                @else
+                                                    {{ strip_tags($data_gram_doc_details['user_data']['village']) }}
+                                                @endif
+                                            </label>
                                         </div>
                                     </div>
 
