@@ -84,7 +84,7 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
             unset($item->m_name);
             unset($item->l_name);
             return [
-                'Distributer Name' => $fullName,
+                'Distributer Name' => $item->fullName,
                 'Gramsevak Name' => $item->full_name,
                 'District' => $item->district,
                 'Taluka' => $item->taluka,

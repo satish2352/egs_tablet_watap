@@ -158,7 +158,7 @@
                                                     <th>Gramsevak Name</th>
                                                     <th>District</th>
                                                     <th>Taluka</th>
-                                                    <th>Village</th>
+                                                    <th>Grampanchayat Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -170,7 +170,13 @@
                                                         </td>
                                                         <td>{{ $item['district'] }}</td>
                                                         <td>{{ $item['taluka'] }}</td>
-                                                        <td>{{ $item['village'] }}</td>
+                                                        <td>
+                                                            @if($item['village']=='999999')
+                                                                {{ $item['gram_panchayat_name'] }}
+                                                            @else
+                                                            {{ $item['village'] }}
+
+                                                    </td>
 
                                                         <td class="d-flex">
                                                                  
