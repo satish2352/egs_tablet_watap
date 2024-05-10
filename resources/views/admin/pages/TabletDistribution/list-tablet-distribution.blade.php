@@ -146,7 +146,7 @@
                                                     <th>Gramsevak Name</th>
                                                     <th>District</th>
                                                     <th>Taluka</th>
-                                                    <th>Village</th>
+                                                    <th>Grampanchayat Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
