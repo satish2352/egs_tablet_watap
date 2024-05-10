@@ -175,8 +175,8 @@
                                                                 {{ $item['gram_panchayat_name'] }}
                                                             @else
                                                             {{ $item['village'] }}
-
-                                                    </td>
+                                                            @endif
+                                                        </td>
 
                                                         <td class="d-flex">
                                                                  
