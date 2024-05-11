@@ -176,6 +176,7 @@ class GramSevakTabletDistributionController extends Controller
                     'gram_sevak_tablet_distribution.id',
                     'gram_sevak_tablet_distribution.full_name',
                     'gram_sevak_tablet_distribution.district_id',
+                    'gram_sevak_tablet_distribution.gram_panchayat_name',
                     'district_labour.name as district_name',
                     'gram_sevak_tablet_distribution.taluka_id',
                     'taluka_labour.name as taluka_name',
