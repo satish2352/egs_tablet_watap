@@ -111,7 +111,7 @@
             <?php $currenturl = Request::url(); ?>
               <a class="nav-link" href="{{ route('list-users') }}">
                   <i class="fas fa-user menu-icon"></i>
-                  <span class="menu-title">Users Management</span>
+                  <span class="menu-title">Distributor Management</span>
               </a>
           </li>
              @endif

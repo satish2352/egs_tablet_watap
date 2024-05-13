@@ -12,7 +12,7 @@
                 </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">All Beneficary</a></li>
+                        <li class="breadcrumb-item"><a href="#">All Beneficiary</a></li>
                         <!-- <li class="breadcrumb-item active" aria-current="page">All Beneficary</li> -->
                     </ol>
                 </nav>
