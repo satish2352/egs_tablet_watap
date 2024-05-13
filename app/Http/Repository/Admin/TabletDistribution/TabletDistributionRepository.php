@@ -53,7 +53,7 @@ class TabletDistributionRepository
 				'gram_sevak_tablet_distribution.longitude','gram_sevak_tablet_distribution.aadhar_image',
 				'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
 				'gram_sevak_tablet_distribution.photo_of_beneficiary',
-				'gram_sevak_tablet_distribution.photo_of_tablet_imei',
+				'gram_sevak_tablet_distribution.photo_of_tablet_imei','gram_sevak_tablet_distribution.village_id as vid',
 				'gram_sevak_tablet_distribution.created_at')
 				->first();
 
