@@ -36,15 +36,6 @@
 
                                     <div class="row ">
                                         <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <label>Grampanchayat Name :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <label>{{ $data_gram_doc_details['user_data']['gram_panchayat_name'] }}</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
                                             <label>Mobile Number :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -81,7 +72,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
                                             <label>
-                                                @if($data_gram_doc_details['user_data']['village']=='999999')
+                                                @if($data_gram_doc_details['user_data']['vid']=='999999')
                                                     {{ strip_tags($data_gram_doc_details['user_data']['gram_panchayat_name']) }}
                                                 @else
                                                     {{ strip_tags($data_gram_doc_details['user_data']['village']) }}
