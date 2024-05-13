@@ -297,12 +297,22 @@
                                     table.clear().draw();
 
                                     $.each(response.labour_ajax_data, function(index, labour_data) {
+
+                                        if(labour_data.vid='999999')
+                                    {
+                                        var new_vil_name=labour_data.gram_panchayat_name
+                                    }
+                                    else
+                                    {
+                                        var new_vil_name=labour_data.village;
+                                    }
+
                                         index++;
                                         table.row.add([ index,
                                             labour_data.full_name,
                                             labour_data.district,
                                             labour_data.taluka,
-                                            labour_data.village,
+                                            new_vil_name,
                                             '<a onClick="getData(' + labour_data.id + ')" class="show-btn btn btn-sm btn-outline-primary m-1"><i class="fas fa-eye"></i></a>']).draw(false);
                                     });
                                 }else{
