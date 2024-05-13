@@ -298,7 +298,7 @@
 
                                     $.each(response.labour_ajax_data, function(index, labour_data) {
 
-                                        if(labour_data.vid='999999')
+                                        if(labour_data.vid=='999999')
                                     {
                                         var new_vil_name=labour_data.gram_panchayat_name
                                     }
