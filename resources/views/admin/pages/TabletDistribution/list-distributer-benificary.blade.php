@@ -171,7 +171,7 @@
                                                         <td>{{ $item['district'] }}</td>
                                                         <td>{{ $item['taluka'] }}</td>
                                                         <td>
-                                                            @if($item['village']=='999999')
+                                                            @if($item['vid']=='999999')
                                                                 {{ $item['gram_panchayat_name'] }}
                                                             @else
                                                             {{ $item['village'] }}

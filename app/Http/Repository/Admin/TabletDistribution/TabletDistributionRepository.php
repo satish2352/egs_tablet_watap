@@ -25,7 +25,8 @@ class TabletDistributionRepository
 				->leftJoin('users', 'gram_sevak_tablet_distribution.user_id', '=', 'users.id')
 				->where('gram_sevak_tablet_distribution.is_active','1')
 				->select('gram_sevak_tablet_distribution.full_name','users.id','users.f_name','users.m_name','users.l_name',
-				'district_user.name as district','taluka_user.name as taluka','village_user.name as village','gram_sevak_tablet_distribution.mobile_number')
+				'district_user.name as district','taluka_user.name as taluka','village_user.name as village','gram_sevak_tablet_distribution.mobile_number',
+				'gram_sevak_tablet_distribution.gram_panchayat_name','gram_sevak_tablet_distribution.village_id as vid')
 				->get();
 // dd($data_users);
 		$sess_user_id=session()->get('user_id');
@@ -88,7 +89,7 @@ class TabletDistributionRepository
 				'gram_sevak_tablet_distribution.longitude','gram_sevak_tablet_distribution.aadhar_image',
 				'gram_sevak_tablet_distribution.gram_sevak_id_card_photo',
 				'gram_sevak_tablet_distribution.photo_of_beneficiary',
-				'gram_sevak_tablet_distribution.created_at')
+				'gram_sevak_tablet_distribution.created_at','gram_sevak_tablet_distribution.village_id as vid')
 				->orderBy('gram_sevak_tablet_distribution.id', 'desc')
 				->get()
 				->toArray();
