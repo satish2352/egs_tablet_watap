@@ -105,7 +105,6 @@
          
 
 
-             @if (in_array('list-users', $data_for_url))
         <li class="{{request()->is('list-users*')
             ? 'nav-item active' : 'nav-item' }}">
             <?php $currenturl = Request::url(); ?>
@@ -114,7 +113,6 @@
                   <span class="menu-title">Distributor Management</span>
               </a>
           </li>
-             @endif
              <li class="{{request()->is('list-gramsevak-tablet-distribution*')
                 ? 'nav-item active' : 'nav-item' }}">
                 <?php $currenturl = Request::url(); ?>
