@@ -292,7 +292,6 @@
                     var villageId = $('#village_id').val();
                     var editId = $('#edit_id').val();
 
-
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
                             url: '{{ route('filter-tablet-distribution') }}',
