@@ -279,9 +279,22 @@
                     {
                         districtId="null";
                     }
-                    // console.log(districtId);
+                    
                     var talukaId = $('#taluka_id').val();
+                    if(talukaId==undefined){
+                        talukaId="";
+                    }else if(talukaId=='')
+                    {
+                        talukaId="null";
+                    }
+
                     var villageId = $('#village_id').val();
+                    if(villageId==undefined){
+                        villageId="";
+                    }else if(villageId=='')
+                    {
+                        villageId="null";
+                    }
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
@@ -337,12 +350,30 @@
             $(document).ready(function() {
                 $('#submitExportButton').click(function(e) {
                     e.preventDefault();
-                    var districtId = $('#district_id').val()
+                    var districtId = $('#district_id').val();
+
                     if(districtId==undefined){
                         districtId="";
+                    }else if(districtId=='')
+                    {
+                        districtId="null";
                     }
+
                     var talukaId = $('#taluka_id').val();
+                    if(talukaId==undefined){
+                        talukaId="";
+                    }else if(talukaId=='')
+                    {
+                        talukaId="null";
+                    }
+
                     var villageId = $('#village_id').val();
+                    if(villageId==undefined){
+                        villageId="";
+                    }else if(villageId=='')
+                    {
+                        villageId="null";
+                    }
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
