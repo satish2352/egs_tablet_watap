@@ -170,10 +170,10 @@ class TabletDistributionController extends Controller {
         if ($request->filled('districtId') && $districtId !='null') {
             $query->where('gram_sevak_tablet_distribution.district_id', $districtId);
         }
-        if ($request->filled('talukaId') && $talukaId !='null') {
+        if ($request->filled('talukaId')) {
             $query->where('gram_sevak_tablet_distribution.taluka_id', $talukaId);
         }
-        if ($request->filled('villageId') && $villageId !='null') {
+        if ($request->filled('villageId')) {
             $query->where('gram_sevak_tablet_distribution.village_id', $villageId);
         }
         
