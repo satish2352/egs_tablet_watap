@@ -107,7 +107,7 @@
                                             <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['aadhar_image'] }}"
                                                 style="width:100px; height:100px;" />
 
-                                                <img src="{{ asset('storage/'.$data_gram_doc_details['user_data']['aadhar_image'] ) }}" alt="Satish's Image">
+                                                <img src="{{ asset('storage/all_web_data/images/gramsevak/'.$data_gram_doc_details['user_data']['aadhar_image'] ) }}" alt="Satish's Image">
 
                                         </div>
                                     </div>
