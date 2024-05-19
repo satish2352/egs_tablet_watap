@@ -287,28 +287,11 @@
                     var districtId = $('#district_id').val()
                     if(districtId==undefined){
                         districtId="";
-                    }else if(districtId=='')
-                    {
-                        districtId="null";
                     }
-                    
                     var talukaId = $('#taluka_id').val();
-                    if(talukaId==undefined){
-                        talukaId="";
-                    }else if(talukaId=='')
-                    {
-                        talukaId="null";
-                    }
-
                     var villageId = $('#village_id').val();
-                    if(villageId==undefined){
-                        villageId="";
-                    }else if(villageId=='')
-                    {
-                        villageId="null";
-                    }
-
                     var editId = $('#edit_id').val();
+// alert(editId);
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
