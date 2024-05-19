@@ -104,10 +104,8 @@
                                             <label>Aadhar Image :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <img class="preview-image" src="{{ asset('storage/'.$data_gram_doc_details['user_data']['aadhar_image']') }}"
+                                            <img class="preview-image" src="{{ asset('storage/'.$data_gram_doc_details['user_data']['aadhar_image']) }}"
                                                 style="width:100px; height:100px;" />
-
-                                                <img src="{{ asset('storage/'.$data_gram_doc_details['user_data']['aadhar_image']') }}" alt="Satish's Image">
 
                                         </div>
                                     </div>
