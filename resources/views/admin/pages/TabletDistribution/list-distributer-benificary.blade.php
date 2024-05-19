@@ -291,7 +291,7 @@
                     var talukaId = $('#taluka_id').val();
                     var villageId = $('#village_id').val();
                     var editId = $('#edit_id').val();
-// alert(editId);
+
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
