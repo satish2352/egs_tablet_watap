@@ -285,9 +285,9 @@ class GramSevakTabletDistributionController extends Controller
                 foreach ($data_output as $labour) {
                     // Append image paths to the output data
                     $labour->gram_sevak_id_card_photo = asset('storage/all_web_data/images/gramsevak/'. $labour->gram_sevak_id_card_photo);
-                    $labour->aadhar_image = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->aadhar_image;
-                    $labour->photo_of_beneficiary = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_beneficiary;
-                    $labour->photo_of_tablet_imei = Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') . $labour->photo_of_tablet_imei;
+                    $labour->aadhar_image = asset('storage/all_web_data/images/gramsevak/'. $labour->aadhar_image);
+                    $labour->photo_of_beneficiary = asset('storage/all_web_data/images/gramsevak/'. $labour->photo_of_beneficiary);
+                    $labour->photo_of_tablet_imei = asset('storage/all_web_data/images/gramsevak/'. $labour->photo_of_tablet_imei);
 
                 }
 
