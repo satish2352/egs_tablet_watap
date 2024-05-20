@@ -104,7 +104,7 @@
                                             <label>Aadhar Image :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['aadhar_image'] }}"
+                                            <img class="preview-image" src="{{ asset('storage/all_web_data/images/gramsevak/'.$data_gram_doc_details['user_data']['aadhar_image']) }}"
                                                 style="width:100px; height:100px;" />
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                             <label>Gramsevak ID Card :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['gram_sevak_id_card_photo'] }}"
+                                            <img class="preview-image" src="{{ asset('storage/all_web_data/images/gramsevak/'.$data_gram_doc_details['user_data']['gram_sevak_id_card_photo']) }}"
                                                 style="width:100px; height:100px;" />
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@
                                             <label>Photo Of Beneficiry :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['photo_of_beneficiary'] }}"
+                                            <img class="preview-image" src="{{ asset('storage/all_web_data/images/gramsevak/'.$data_gram_doc_details['user_data']['photo_of_beneficiary']) }}"
                                                 style="width:100px; height:100px;" />
                                         
                                         </div>
@@ -134,7 +134,7 @@
                                             <label>Photo Tablet IMEI :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <img class="preview-image" src="{{ Config::get('DocumentConstant.USER_GRAMSEVAK_VIEW') }}{{ $data_gram_doc_details['user_data']['photo_of_tablet_imei'] }}"
+                                            <img class="preview-image" src="{{ asset('storage/all_web_data/images/gramsevak/'.$data_gram_doc_details['user_data']['photo_of_tablet_imei']) }}"
                                                 style="width:100px; height:100px;" />
                                         
                                         </div>

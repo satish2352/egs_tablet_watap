@@ -106,7 +106,7 @@
                                             <label>Profile :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8">
-                                            <img src="{{ Config::get('DocumentConstant.USER_PROFILE_VIEW') }}{{ $user_detail->user_profile }}"
+                                            <img src="{{ asset('storage/all_web_data/images/userProfile/'. $user_detail->user_profile) }}"
                                                 style="width:100px; height:100px; border-radius:50%" />
                                         </div>
                                     </div>
