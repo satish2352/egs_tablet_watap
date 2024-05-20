@@ -151,32 +151,37 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($gramsevaks as $item)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $item->full_name }}
-                                                        </td>
-                                                        <td>{{ $item->district }}</td>
-                                                        <td>{{ $item->taluka }}</td>
-                                                        <td>
-                                                            @if($item['vid']=='999999')
-                                                                {{ $item['gram_panchayat_name'] }}
-                                                            @else
-                                                            {{ $item['village'] }}
-                                                            @endif
-                                                        </td>
+                                                @if(!empty($gramsevaks))
+                                                    @foreach ($gramsevaks as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->full_name }}
+                                                            </td>
+                                                            <td>{{ $item->district }}</td>
+                                                            <td>{{ $item->taluka }}</td>
+                                                            <td>
+                                                                @if($item['vid']=='999999')
+                                                                    {{ $item['gram_panchayat_name'] }}
+                                                                @else
+                                                                {{ $item['village'] }}
+                                                                @endif
+                                                            </td>
 
-                                                        <td class="d-flex">
-                                                                 
-                                                            <a data-id="{{ $item->id }}"
-                                                                class="show-btn btn btn-sm btn-outline-primary m-1"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                         
+                                                            <td class="d-flex">
+                                                                    
+                                                                <a data-id="{{ $item->ben_id }}"
+                                                                    class="show-btn btn btn-sm btn-outline-primary m-1"><i
+                                                                        class="fas fa-eye"></i></a>
+                                                            
 
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                        <tr>
+                                                            <h6>No Records Found</h6>
+                                                        </tr>
+                                                @endif        
                                             </tbody>
                                         </table>
                                     </div>
