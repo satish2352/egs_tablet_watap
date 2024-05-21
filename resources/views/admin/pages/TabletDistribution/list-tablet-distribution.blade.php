@@ -282,6 +282,9 @@
                         districtId="";
                     }
                     
+                    var talukaId = $('#taluka_id').val();
+
+                    var villageId = $('#village_id').val();
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
@@ -343,6 +346,10 @@
                         districtId="";
                     }
 
+                    var talukaId = $('#taluka_id').val();
+
+                    var villageId = $('#village_id').val();
+                   
 
                     if (districtId !== '' || talukaId !== '' || villageId !== '') {
                         $.ajax({
