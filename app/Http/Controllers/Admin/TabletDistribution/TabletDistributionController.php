@@ -167,13 +167,13 @@ class TabletDistributionController extends Controller {
                 'gram_sevak_tablet_distribution.mobile_number','gram_sevak_tablet_distribution.village_id as vid',
                 'gram_sevak_tablet_distribution.gram_panchayat_name')
 				->orderBy('gram_sevak_tablet_distribution.id', 'desc');
-        if ($request->filled('districtId') && $districtId !='null') {
+        if ($request->filled('districtId')) {
             $query->where('gram_sevak_tablet_distribution.district_id', $districtId);
         }
-        if ($request->filled('talukaId') && $talukaId !='null') {
+        if ($request->filled('talukaId')) {
             $query->where('gram_sevak_tablet_distribution.taluka_id', $talukaId);
         }
-        if ($request->filled('villageId') && $villageId !='null') {
+        if ($request->filled('villageId')) {
             $query->where('gram_sevak_tablet_distribution.village_id', $villageId);
         }
         

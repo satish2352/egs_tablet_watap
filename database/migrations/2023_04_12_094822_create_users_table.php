@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
             $table->string('user_profile')->default('null');
             // $table->rememberToken();
             $table->text('remember_token', 255)->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->integer('is_active')->default(true);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });

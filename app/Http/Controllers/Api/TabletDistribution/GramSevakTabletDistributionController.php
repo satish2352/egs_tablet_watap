@@ -319,9 +319,9 @@ class GramSevakTabletDistributionController extends Controller
             $basic_query_object = GramSevakTabletDistribution::where('id',$request->id)->update(['is_active' => '0']);
                 
 
-            return response()->json(['status' => 'true', 'message' => 'All data deleted successfully',  'data' => $basic_query_object], 200);
+            return response()->json(['status' => 'true', 'message' => 'Beneficiary deleted successfully',  'data' => $basic_query_object], 200);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'false', 'message' => 'Data get failed', 'error' => $e->getMessage()], 500);
+            return response()->json(['status' => 'false', 'message' => 'Beneficiary delete failed', 'error' => $e->getMessage()], 500);
         }
 
     }

@@ -138,82 +138,72 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination{
                                                 </div>
 
                                                 <div class="col-md-8">
-                                                <div class="pagination">
-    @if ($data_village->lastPage() > 1)
-        <ul class="pagination">
-            <li class="{{ ($data_village->currentPage() == 1) ? ' disabled' : '' }}">
-                @if ($data_village->currentPage() > 1)
-                    <a href="{{ $data_village->url($data_village->currentPage() - 1) }}">Previous</a>
-                @else
-                    <span>Previous</span>
-                @endif
-            </li>
-            @php
-                $currentPage = $data_village->currentPage();
-                $lastPage = $data_village->lastPage();
-                $startPage = max($currentPage - 5, 1);
-                $endPage = min($currentPage + 4, $lastPage);
-            @endphp
-            @if ($startPage > 1)
-                <li>
-                    <a href="{{ $data_village->url(1) }}">1</a>
-                </li>
-                @if ($startPage > 2)
-                    <li>
-                        <span>...</span>
-                    </li>
-                @endif
-            @endif
-            @for ($i = $startPage; $i <= $endPage; $i++)
-                <li class="{{ ($currentPage == $i) ? ' active' : '' }}">
-                    <a href="{{ $data_village->url($i) }}">{{ $i }}</a>
-                </li>
-            @endfor
-            @if ($endPage < $lastPage)
-                @if ($endPage < $lastPage - 1)
-                    <li>
-                        <span>...</span>
-                    </li>
-                @endif
-                <li>
-                    <a href="{{ $data_village->url($lastPage) }}">{{ $lastPage }}</a>
-                </li>
-            @endif
-            <li class="{{ ($currentPage == $lastPage) ? ' disabled' : '' }}">
-                @if ($currentPage < $lastPage)
-                    <a href="{{ $data_village->url($currentPage + 1) }}">Next</a>
-                @else
-                    <span>Next</span>
-                @endif
-            </li>
-            <!-- <li>
-                <span>Page {{ $currentPage }}</span>
-            </li> -->
-        </ul>
-    @endif
-</div>
-
-</div>
-
-
-                                                
-                                                <!-- <div class="col-md-8">
                                                     <div class="pagination">
-                                                        {{ $data_village->links() }}
+                                                        @if ($data_village->lastPage() > 1)
+                                                            <ul class="pagination">
+                                                                <li class="{{ ($data_village->currentPage() == 1) ? ' disabled' : '' }}">
+                                                                    @if ($data_village->currentPage() > 1)
+                                                                        <a href="{{ $data_village->url($data_village->currentPage() - 1) }}">Previous</a>
+                                                                    @else
+                                                                        <span>Previous</span>
+                                                                    @endif
+                                                                </li>
+                                                                @php
+                                                                    $currentPage = $data_village->currentPage();
+                                                                    $lastPage = $data_village->lastPage();
+                                                                    $startPage = max($currentPage - 5, 1);
+                                                                    $endPage = min($currentPage + 4, $lastPage);
+                                                                @endphp
+                                                                @if ($startPage > 1)
+                                                                    <li>
+                                                                        <a href="{{ $data_village->url(1) }}">1</a>
+                                                                    </li>
+                                                                    @if ($startPage > 2)
+                                                                        <li>
+                                                                            <span>...</span>
+                                                                        </li>
+                                                                    @endif
+                                                                @endif
+                                                                @for ($i = $startPage; $i <= $endPage; $i++)
+                                                                    <li class="{{ ($currentPage == $i) ? ' active' : '' }}">
+                                                                        <a href="{{ $data_village->url($i) }}">{{ $i }}</a>
+                                                                    </li>
+                                                                @endfor
+                                                                @if ($endPage < $lastPage)
+                                                                    @if ($endPage < $lastPage - 1)
+                                                                        <li>
+                                                                            <span>...</span>
+                                                                        </li>
+                                                                    @endif
+                                                                    <li>
+                                                                        <a href="{{ $data_village->url($lastPage) }}">{{ $lastPage }}</a>
+                                                                    </li>
+                                                                @endif
+                                                                <li class="{{ ($currentPage == $lastPage) ? ' disabled' : '' }}">
+                                                                    @if ($currentPage < $lastPage)
+                                                                        <a href="{{ $data_village->url($currentPage + 1) }}">Next</a>
+                                                                    @else
+                                                                        <span>Next</span>
+                                                                    @endif
+                                                                </li>
+                                                                <!-- <li>
+                                                                    <span>Page {{ $currentPage }}</span>
+                                                                </li> -->
+                                                            </ul>
+                                                        @endif
                                                     </div>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <form method="POST" action="{{ url('/delete-users') }}" id="deleteform">
             @csrf
             <input type="hidden" name="delete_id" id="delete_id" value="">
