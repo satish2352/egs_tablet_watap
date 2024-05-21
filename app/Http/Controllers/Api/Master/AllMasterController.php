@@ -41,14 +41,18 @@ class AllMasterController extends Controller
         try {
             $areas =  TblArea::where(['is_new'=> '1'])->get();
 
-            foreach ($areas as $data) {
-                $data->is_visible = (string) $data->is_visible;
-                $data->location_id =(string) $data->location_id;
-                $data->location_type = (string) $data->location_type;
-                $data->parent_id = (string) $data->parent_id;
-                $data->is_new = (string) $data->is_new;
-                $data->is_active = $data->is_active ? "1" : "0";
-            }
+            $areas = $areas->map(function ($data) {
+                return [
+                    'id' => (string) $data->id,
+                    'is_visible' => (string) $data->is_visible,
+                    'location_id' => (string) $data->location_id,
+                    'location_type' => (string) $data->location_type,
+                    'parent_id' => (string) $data->parent_id,
+                    'is_new' => (string) $data->is_new,
+                    'is_active' => $data->is_active ? "1" : "0"
+                ];
+            })->toArray();
+
             
             return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $data], 200);
         } catch (\Exception $e) {
