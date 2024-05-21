@@ -39,7 +39,11 @@ class AllMasterController extends Controller
 
     public function getAllMastersUpdated(){
         try {
-            $data =  TblArea::where(['is_new'=> '1'])->get();
+            $areas =  TblArea::where(['is_new'=> '1'])->get();
+
+            foreach ($areas as $data) {
+                $data->is_active = $data->is_active ? "1" : "0";
+            }
             
             return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $data], 200);
         } catch (\Exception $e) {
