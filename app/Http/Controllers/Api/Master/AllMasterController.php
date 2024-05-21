@@ -37,24 +37,12 @@ class AllMasterController extends Controller
         }
     }
 
+
     public function getAllMastersUpdated(){
         try {
-            $areas =  TblArea::where(['is_new'=> '1'])->get();
-
-            $areas = $areas->map(function ($data) {
-                return [
-                    'id' => (string) $data->id,
-                    'is_visible' => (string) $data->is_visible,
-                    'location_id' => (string) $data->location_id,
-                    'location_type' => (string) $data->location_type,
-                    'parent_id' => (string) $data->parent_id,
-                    'is_new' => (string) $data->is_new,
-                    'is_active' => $data->is_active ? "1" : "0"
-                ];
-            })->toArray();
-
+            $data =  TblArea::where(['is_new'=> '1'])->get();
             
-            return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $areas], 200);
+            return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $data], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
