@@ -27,7 +27,6 @@
                           </p>                      </div>
                   </div>
               </li>
-              @if (in_array('dashboard', $data_for_url))
               <li
               class="{{request()->is('dashboard*')
                     ? 'nav-item active' : 'nav-item' }}">
@@ -37,40 +36,8 @@
                       <span class="menu-title">Dashboard</span>
                   </a>
               </li>    
-              @endif
-              <!-- @if (in_array('list-role', $data_for_url) || in_array('list-documenttype', $data_for_url) ||
-                      in_array('list-gender', $data_for_url))
-                  <li class="{{request()->is('list-role*')
-                    ? 'nav-item active' : 'nav-item' }}">
-                      <a class="{{request()->is('list-role*')
-                                    ? 'nav-link active' : 'nav-link' }}" data-toggle="collapse" href="#master" aria-expanded="false"
-                          aria-controls="master">
-                          <i class="fa fa-th-large menu-icon"></i>
-                          <span class="menu-title">Master</span>
-                          <i class="menu-arrow"></i>
-                      </a>
-                      <div class="collapse" id="master">
-                          <ul class="nav flex-column sub-menu">
-                              @if (in_array('list-role', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-role*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-role') }}">Role</a></li>
-                              @endif
-                              @if (in_array('list-gender', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-gender*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-gender') }}">Gender</a></li>
-                              @endif
-                              @if (in_array('list-documenttype', $data_for_url))
-                                  <li class="nav-item d-none d-lg-block"><a class="{{request()->is('list-documenttype*')
-                                    ? 'nav-link active' : 'nav-link' }}"
-                                          href="{{ route('list-documenttype') }}">Document Type</a></li>
-                              @endif
-
-                          </ul>
-                      </div>
-                  </li>
-             @endif -->
+              
+             
 
              
                   <li class="{{request()->is('list-role*')
