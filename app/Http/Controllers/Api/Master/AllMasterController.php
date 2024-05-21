@@ -42,6 +42,11 @@ class AllMasterController extends Controller
             $areas =  TblArea::where(['is_new'=> '1'])->get();
 
             foreach ($areas as $data) {
+                'is_visible' => (string) $area->is_visible,
+                'location_id' => (string) $area->location_id,
+                'location_type' => (string) $area->location_type,
+                'parent_id' => (string) $area->parent_id,
+                'is_new' => (string) $area->is_new,
                 $data->is_active = $data->is_active ? "1" : "0";
             }
             
