@@ -37,7 +37,6 @@ class AllMasterController extends Controller
         }
     }
 
-
     public function getAllMastersUpdated(){
         try {
             $data =  TblArea::where(['is_new'=> '1'])->get();
