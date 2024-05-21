@@ -54,7 +54,7 @@ class AllMasterController extends Controller
             })->toArray();
 
             
-            return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $data], 200);
+            return response()->json(['status' => 'success', 'message' => 'All data retrieved successfully', 'data' => $areas], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
