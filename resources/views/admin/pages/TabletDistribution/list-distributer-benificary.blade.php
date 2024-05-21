@@ -19,7 +19,7 @@
         <div class="content-wrapper mt-7">
             <div class="page-header">
                 <h3 class="page-title">
-                    Beneficary List
+                    Beneficiary List
                 </h3>
                 <span> Distributor Name : <b>{{ $all_data['distributer_data']['f_name'] }} {{ $all_data['distributer_data']['m_name'] }}
                      {{ $all_data['distributer_data']['l_name'] }}</b></span>
