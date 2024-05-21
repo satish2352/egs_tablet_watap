@@ -47,9 +47,12 @@ class AllMasterController extends Controller
                     'is_visible' => (string) $data->is_visible,
                     'location_id' => (string) $data->location_id,
                     'location_type' => (string) $data->location_type,
+                    'name' => (string) $data->name,
                     'parent_id' => (string) $data->parent_id,
+                    'is_active' => $data->is_active ? "1" : "0",
+                    'created_at' => $data->created_at,
+                    'updated_at' => (string) $data->updated_at,
                     'is_new' => (string) $data->is_new,
-                    'is_active' => $data->is_active ? "1" : "0"
                 ];
             })->toArray();
 
