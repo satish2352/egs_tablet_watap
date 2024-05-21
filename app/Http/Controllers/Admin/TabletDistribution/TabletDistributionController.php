@@ -39,6 +39,7 @@ class TabletDistributionController extends Controller {
 		$sess_user_working_dist=session()->get('working_dist');
         
         $district_data = TblArea::where('parent_id', '2')
+                    ->where('is_active', '1')
                     ->orderBy('name', 'asc')
                     ->get(['location_id', 'name']);
 
@@ -116,6 +117,7 @@ class TabletDistributionController extends Controller {
 
     public function getDistributerBenificiaryList(Request $request){
         $district_data = TblArea::where('parent_id', '2')
+                    ->where('is_active', '1')
                     ->orderBy('name', 'asc')
                     ->get(['location_id', 'name']);
 
