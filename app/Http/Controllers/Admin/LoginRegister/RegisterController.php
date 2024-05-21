@@ -46,6 +46,7 @@ class RegisterController extends Controller {
                             ->get()
                             ->toArray();
         $dynamic_district = TblArea::where('parent_id', 2)
+                            ->where('is_active', '1')
                             ->select('location_id','name')
                             ->orderBy('name', 'asc')
                             ->get()
@@ -58,6 +59,7 @@ class RegisterController extends Controller {
         $stateId = $request->input('stateId');
 
         $city = TblArea::where('parent_id', $stateId)
+                    ->where('is_active', '1')
                     ->get(['location_id', 'name']);
               return response()->json(['city' => $city]);
 
@@ -68,6 +70,7 @@ class RegisterController extends Controller {
         $stateId = $request->input('stateId');
 
         $district = TblArea::where('parent_id', $stateId)
+                    ->where('is_active', '1')
                     ->orderBy('name', 'asc')
                     ->get(['location_id', 'name']);
               return response()->json(['district' => $district]);
@@ -79,6 +82,7 @@ class RegisterController extends Controller {
         $districtId = $request->input('districtId');
 
         $taluka = TblArea::where('parent_id', $districtId)
+                    ->where('is_active', '1')
                     ->orderBy('name', 'asc')
                     ->get(['location_id', 'name']);
               return response()->json(['taluka' => $taluka]);
@@ -90,6 +94,7 @@ class RegisterController extends Controller {
         $talukaId = $request->input('talukaId');
 
         $village = TblArea::where('parent_id', $talukaId)
+                    ->where('is_active', '1')
                     ->orderBy('name', 'asc')
                     ->get(['location_id', 'name']);
               return response()->json(['village' => $village]);
@@ -100,6 +105,7 @@ class RegisterController extends Controller {
     {
         $stateId = $request->input('stateId');
         $state =  TblArea::select('location_id','name')
+                            ->where('is_active', '1')
                             ->orderBy('name', 'asc')
                             ->get()
                             ->toArray();
@@ -109,6 +115,7 @@ class RegisterController extends Controller {
 
     public function editUsers(Request $request){
         $dynamic_district = TblArea::where('parent_id', 2)
+                            ->where('is_active', '1')
                             ->select('location_id','name')
                             ->orderBy('name', 'asc')
                             ->get()
