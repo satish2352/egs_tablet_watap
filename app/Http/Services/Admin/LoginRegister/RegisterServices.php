@@ -148,10 +148,11 @@ class RegisterServices
         
         try {
         $return_data = $this->repo->updateProfile($request);
+       
         $path = Config::get('DocumentConstant.USER_PROFILE_ADD');
         if ($request->hasFile('user_profile')) {
             if ($return_data['user_profile']) {
-                if (file_exists_s3(Config::get('DocumentConstant.USER_PROFILE_DELETE') . $return_data['user_profile'])) {
+                if (Config::get('DocumentConstant.USER_PROFILE_DELETE') . $return_data['user_profile']) {
                     removeImage(Config::get('DocumentConstant.USER_PROFILE_DELETE') . $return_data['user_profile']);
                 }
 
@@ -171,9 +172,9 @@ class RegisterServices
         }
        
 
-    } catch (\Exception $e) {
-        return ['status' => 'error', 'msg' => $e->getMessage()];
-    }  
+        } catch (\Exception $e) {
+            return ['status' => 'error', 'msg' => $e->getMessage()];
+        }  
     }
     
     public function updateOne($id){
