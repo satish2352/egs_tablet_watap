@@ -29,7 +29,8 @@ Route::post('/resolve-error', ['as' => '/resolve-error', 'uses' => 'App\Http\Con
 Route::get('/error-handling', ['as' => 'error-handling', 'uses' => 'App\Http\Controllers\ErrorHandlingController@errorHandling']);
 
 Route::get('/login', ['as' => 'login', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\LoginController@index']);
-Route::post('/submitLogin', ['as' => 'submitLogin', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\LoginController@submitLogin']);
+// Route::post('/submitLogin', ['as' => 'submitLogin', 'uses' => 'App\Http\Controllers\Admin\LoginRegister\LoginController@submitLogin']);
+Route::post('/submitLogin', 'App\Http\Controllers\Admin\LoginRegister\LoginController@submitLogin')->name('submitLogin');
 
 // ================================================
 Route::group(['middleware' => ['admin']], function () {
