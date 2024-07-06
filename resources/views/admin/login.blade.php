@@ -68,7 +68,7 @@
                                 </div>
                             @endif
 
-                            <form class="pt-3 login_wrap" method="post" action='{{ route('submitLogin') }}'>
+                            <form class="pt-3 login_wrap" method="post" action='{{ url('submitLogin') }}'>
                                 @csrf
                                 <div class="form-group">
                                     <div class="input-group">
