@@ -67,9 +67,8 @@
                                     <p> {{ session('success') }} </p>
                                 </div>
                             @endif
-                            <!-- {{ dd(config('app.url')) }} -->
 
-                            <form class="pt-3 login_wrap" method="post" action="{{ config('app.url')('submitLogin') }}">
+                            <form class="pt-3 login_wrap" method="post" action="{{ url('submitLogin') }}">
                                 @csrf
                                 <div class="form-group">
                                     <div class="input-group">
