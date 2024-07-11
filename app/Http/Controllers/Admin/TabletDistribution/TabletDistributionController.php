@@ -190,11 +190,12 @@ class TabletDistributionController extends Controller {
     {
 
                 $export = new UsersExportFilter($request);
+                // dd($export);
     // $filePath = 'exports/users.xlsx'; // Choose a path to store your exported file
     // \Log::info($export);
     // $export->store('public/' . $filePath);
     // dd($export);
-        return Excel::download($export, 'users.xlsx');
+        return Excel::download($export, 'all_beneficiary_list.xlsx');
         // return response()->json(['file_url' => Storage::url($filePath)]);
 
     }

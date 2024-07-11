@@ -36,7 +36,6 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
                     $query_user->where('users.user_district', $districtId);
                 }
                 if (!empty($districtId)) {
-
                     $query_user->where('users.user_taluka', $talukaId);
                 }
                 if (!empty($districtId)) {
@@ -84,7 +83,7 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
             unset($item->m_name);
             unset($item->l_name);
             return [
-                'Distributer Name' => $item->fullName,
+                'Distributer Name' => $fullName,
                 'Gramsevak Name' => $item->full_name,
                 'District' => $item->district,
                 'Taluka' => $item->taluka,
@@ -98,7 +97,7 @@ class UsersExportFilter implements FromCollection, WithHeadings,ShouldAutoSize
             ];
         });
         
-        return $this->data_output;
+        return $data;
     }
 
     public function headings(): array
