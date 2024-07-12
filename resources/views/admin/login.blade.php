@@ -47,10 +47,10 @@
                         <div class="auth-form-transparent text-left p-3">
                             <!--  Brand Logo -->
                             <div class="brand-logo d-flex justify-content-center">
-                                <img src="{{ asset('/assets/images/mlogo.png') }}" alt="logo">
+                                <img src="{{ asset('/assets/images/new_logo.png') }}" alt="logo">
                             </div>
                             <!--  Login Form -->
-                            <h4 class="text-center" style="color:#392C70">EGS Tablet Distribution</h4>
+                            <h4 class="text-center" style="color:#392C70">Fieldwork Reporting</h4>
                             @if (isset($return_data['msg_alert']) && $return_data['msg_alert'] == 'green')
                                 <div class="alert alert-success" role="alert">
                                     {{ $return_data['msg'] }}
